@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: dashboard-app
-          image: eu.gcr.io/public-data4life/covid-19-mapview-user-app:master-20200404124505-2e87b76
+          image: eu.gcr.io/public-data4life/covid-19-mapview-dashboard:master-20200405230115-5f13072
           ports:
             - containerPort: 80
 ---
