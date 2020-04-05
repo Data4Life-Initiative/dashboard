@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: user-app-ing
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    kubernetes.io/ingress.allow-http: "false"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+spec:
+  tls:
+    - hosts:
+        - integritet-bodenskola.igrant.io
+      secretName: tls-secret
+
+  rules:
+    - host: app.data4life.se
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: user-app-svc
+              servicePort: 80
+          - path: /*
+            backend:
+              serviceName: user-app-svc
+              servicePort: 80
