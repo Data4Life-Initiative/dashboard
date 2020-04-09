@@ -1,5 +1,5 @@
 PROJECT := covid-19-mapview
-APP     := dashboard
+APP     := user-app
 NAME    = $(PROJECT)-$(APP)
 
 PROJECT_PACKAGE := github.com/igrant/$(APP)
@@ -56,10 +56,10 @@ publish: $(DEPLOY_VERSION_F ILE) ## Publish latest production Docker image to do
 	gcloud docker -- push $(DEPLOY_VERSION)
 
 deploy/production: $(DEPLOY_VERSION_FILE) ## Deploy to K8s cluster (e.g. make deploy/{preview,staging,production})
-	kubectl set image deployment/dashboard-app dashboard-app=$(DEPLOY_VERSION)
+	kubectl set image deployment/user-app user-app=$(DEPLOY_VERSION)
 
 deploy/staging: $(DEPLOY_VERSION_FILE) ## Deploy to K8s cluster (e.g. make deploy/{preview,staging,staging})
-	kubectl set image deployment/dashboard-app dashboard-app=$(DEPLOY_VERSION)
+	kubectl set image deployment/user-app user-app=$(DEPLOY_VERSION)
 
 $(DEPLOY_VERSION_FILE):
 	@echo "Missing '$(DEPLOY_VERSION_FILE)' file. Run 'make build/docker/deployable'" >&2

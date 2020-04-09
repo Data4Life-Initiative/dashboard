@@ -25,10 +25,12 @@ pipeline {
                 expression {return env.BRANCH_NAME.equals('master')}
             }
             steps {
-                echo 'Deploy to staging environment'
-                sh 'gcloud auth list'
-                sh 'make build/docker/deployable publish'
-                sh 'make deploy/staging'
+                dir("mobile-webapp"){
+                    echo 'Deploy to staging environment'
+                    sh 'gcloud auth list'
+                    sh 'make build/docker/deployable publish'
+                    sh 'make deploy/staging'
+                }
                 
             }
         }
@@ -40,8 +42,10 @@ pipeline {
                 }
             }
             steps {
-                echo 'Deploy to production environment'
-                sh 'make publish deploy/production'
+                dir("mobile-webapp"){
+                    echo 'Deploy to production environment'
+                    sh 'make publish deploy/production'
+                }
             }
         }
     }

@@ -30,3 +30,5 @@ package-lock.json
 # ----------------------------
 
 build/
+data/
+privateApiKey.js
