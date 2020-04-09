@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Data4Life - Dashboard</title>
+    <meta charset="utf-8">
+    <meta content="Sharing the journey of citizens during the course of the pandemic as a contributor to the collective effort to prevent the spread of the virus and save lives." name="descriptison">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="assets/favicon.png" rel="icon">
+    <link href="assets/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <style>
+
+          body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color:white;
+          }
+
+          * {
+            box-sizing: border-box;
+          }
+
+          h1{
+            padding: 0px;
+            margin: 0px;
+            padding: 0px;
+            color: white;
+          }
+          
+          .column {
+            float: left;
+            padding: 2px;
+          }
+
+          .row
+          {
+            inline-size: 100%;
+          }
+
+          
+          .row:after {
+            content: "";
+            display: table;
+            clear: both;
+          }
+          
+          .container {
+            padding: 2px; 
+            background-color:#d7d7d7;
+            border: none;
+            border-color:#d7d7d7 ;
+          }
+
+          input[type=text], input[type=password] {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 2px 0;
+            display: inline-block;
+            border: none;
+            background-color: #d8d8d8;
+            color: black;
+            opacity: 0.9;
+            border-radius: 24px;
+          }
+
+          input[type=text]:focus, input[type=password]:focus {
+            outline: none;
+            opacity: 0.5;
+          }
+
+          .registerbtn {
+            background-color:#4498d0;
+            color: white;
+            padding: 8px 4px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.8;
+            border-radius: 24px;
+          }
+
+          .registerbtn:hover {
+            opacity: 1;
+          }
+
+          
+          a {
+            color:white;
+            padding-left: 4px;
+          }
+
+          a:hover {
+            color:#d1d1e0 ;
+            text-decoration: none;
+          }
+
+          select
+          {
+   
+            width: 520px;
+            padding: 8px;
+            margin: 5px 0 2px 0;
+            display: inline-block;
+            border: none;
+            background-color: #d8d8d8;
+            color: black;
+            opacity: 0.9;
+            border-radius: 24px;
+          }
+          .circle {
+            border-radius:50%;
+            color: black;
+            border-width: 0.5px;
+            border-style: solid;
+            border-color: slategrey;
+            display:table;
+            height: 20px;
+            font-weight: bold;
+            font-size: 1.2em;
+            width: auto;
+            margin:0 auto;
+          }
+          .circle span {
+            display:table-cell;
+            vertical-align:middle;
+            height:100px;
+            width:100px;
+            text-align:center;
+            padding: 0 15px;
+          }
+
+          #top {
+            width: 100%;
+            height:36vh;
+            margin-top: 50px;
+            padding: 0px;
+            padding-left: 32px;
+          }
+
+          #mapHeader
+          {
+            position: absolute;
+            left: 32px;
+            top: 36vh;
+            background-color:white;
+            color:black;
+            font-size: 16px;
+            font-weight: 800;
+          }
+
+          #profile-img {
+            border-radius:50%;
+            width:25px;
+            height:25px; 
+          }
+
+          #circle-col
+          {
+          padding: 24px; 
+          padding-bottom: 12px; 
+          }
+
+          #patient-col
+          {
+          background-color: #f2f2f2; 
+          padding-top: 28px; 
+          
+          }
+
+          #patient-form
+          {
+            padding: 5px;
+            background-color:#d7d7d7;
+          }
+
+          #center
+          {
+            background-color:white;
+            display:   inline-flex;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 16px;;
+            vertical-align: baseline;
+          }
+          #vert-align
+          {
+             vertical-align: middle; 
+          }
+          #footer
+          {
+            background-color:white;
+          }
+
+          #map-container {
+            position: relative;
+          }
+
+          #map-position {
+            position: absolute;
+            top: 8px;
+            left: 36px;
+            font-size: 18px;
+          }
+
+          #googleMap { 
+            width: 100%;
+            height: auto;
+          }
+
+  </style>
+</head>
+
+<body onload = "getStart()">
+  <div id="mapHeader">STOCKHOLM HOTSPOTS MAP</div>
+  <header id="header" class="fixed-top d-flex align-items-center bg-secondary">
+ 
+      <div class="logo mr-auto navbar navbar-expand-sm bg-secondary navbar-dark">
+        <a href="index.html#header"><img src="assets\White Raven.png" width="25px;height:25px"/>
+        <a class="navbar-brand" href="">Data4Life - STOCKHOLM REGION</a></a></h1>
+      </div>
+
+      <nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
+       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+          <span class="navbar-toggler-icon"></span> 
+        </button>
+        <div class="collapse navbar-collapse justify-content-between" id="collapsibleNavbar">
+          <ul class="navbar-nav">
+            <li class="nav-item ">
+              <a class="nav-link" href="#">Logged in as Lotta Lundin</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><img id="profile-img" src="assets\user.jpg"></img> </a>
+            </li>
+          </ul>
+        </div>  
+      </nav>  
+    </header> 
+
+  <section id="top">
+   <div class="row bg-white">
+      <div class="col-sm-2 text-center block p-4"  >
+        <p class="circle pt-2"><span>30%</span></p> 
+        <p class="p-2">IMMUNISED</p>     
+      </div>
+      <div class="col-sm-2 text-center block p-4">
+        <p class="circle pt-2"><span>8%</span></p> 
+        <p class="p-2">NATURALL IMMUNE</p>     
+      </div>
+      <div class="col-sm-2 text-center p-4"> 
+        <p class="circle pt-2"><span>304</span></p> 
+        <p class="p-2">CURED</p>     
+      </div>
+    
+      <div class="col-sm-6 text-center block p-4">
+        <div class="row"  >
+          <div class="col col-sm-6"  id="patient-col">
+            <h5 class = "text-center"><b>ADD NEW PATIENTS</b></h5>
+            <div  class="border border-light m-0 h-75 d-inline-block bg-white">
+              <p class="p-4 text-center align-self-center" id="vert-align">SCAN PATIENT QR CODE</p> 
+             </div>
+          </div> 
+          <div class="col col-sm-6"  id="patient-col">
+            <form action="/action_page.php">
+              <input type="text" placeholder="Enter Patient Mobile Number" name="email" required>
+              <input type="text" placeholder="Home Location" name="home" required>
+              <input type="text" placeholder="Infection Status" name="status" required>
+              <button type="submit" class="registerbtn">SUBMIT</button>
+            </form> 
+          </div> 
+        </div> 
+      </div>
+</div> 
+</section>
+
+
+
+<div id="map-container" class="jumbotron text-center w-100 p-0 m-0 mb-0" >
+   <div id="googleMap" style="width:100%;height:400px"></div>
+   <div id="map-position">
+    <select>
+     <option selected >COVID-19 PANDEMIC
+    </select>
+  </div>
+</div>
+
+
+<footer id="footer " class="w-100 bg-secondary ">
+  <div class="container w-100 bg-secondary text-white">
+    <div class="row d-flex align-items-center">
+      <div class="col-lg-6 text-lg-left text-center text-primary">
+        <div class="copyright text-white">
+          &copy; Copyright <strong>Data4Life</strong>, Sweden
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <nav class="footer-links text-lg-right text-center pt-2 pt-lg-0">
+          <a href="https://www.igrant.io" target="_blank">iGrant.io</a>
+          <a href="https://github.com/covid-19-mapview" target="_blank">Data4Life Git</a>
+          <a href="terms.html">Terms of Use</a>
+          <a href="privacy.html">Privacy Policy</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+      <script>
+
+        function getHotspotSweden() {
+              const data = [
+                {
+                  lat: '59.33181226723279',
+                  long: '18.044567678390518',
+                  timestamp: '1586033219118',
+                },
+                {
+                  lat: '59.3373485252457',
+                  long: '18.05767429274179',
+                  timestamp: '1585990019118',
+                },
+                {
+                  lat: '59.337605685552724',
+                  long: '18.06960609954454',
+                  timestamp: '1585946819118',
+                },
+                {
+                  lat: '59.331819107742476',
+                  long: '18.055554006515518',
+                  timestamp: '1585903619118',
+                },
+                {
+                  lat: '59.335835617215',
+                  long: '18.127749685464874',
+                  timestamp: '1585860419118',
+                },
+                {
+                  lat: '59.3394483725685',
+                  long: '18.055290463443193',
+                  timestamp: '1585817219118',
+                },
+                {
+                  lat: '59.33591722729204',
+                  long: '18.127903225894364',
+                  timestamp: '1585774019118',
+                },
+                {
+                  lat: '59.330275387554856',
+                  long: '18.08994728612462',
+                  timestamp: '1585730819118',
+                },
+                {
+                  lat: '59.314292843177206',
+                  long: '18.080265852685365',
+                  timestamp: '1585687619118',
+                },
+                {
+                  lat: '59.33023639485954',
+                  long: '18.025322142119798',
+                  timestamp: '1585644419118',
+                },
+                {
+                  lat: '59.331562121397894',
+                  long: '18.07684469508687',
+                  timestamp: '1585601219118',
+                },
+                {
+                  lat: '59.32243421938915',
+                  long: '18.176970216508302',
+                  timestamp: '1585558019118',
+                },
+                {
+                  lat: '59.331882978984844',
+                  long: '18.05492084398987',
+                  timestamp: '1585514819118',
+                },
+                {
+                  lat: '59.33676590967981',
+                  long: '18.056643365726796',
+                  timestamp: '1585471619118',
+                },
+                {
+                  lat: '59.336810747374024',
+                  long: '18.056578635687586',
+                  timestamp: '1585428419118',
+                },
+                {
+                  lat: '59.33737393694927',
+                  long: '18.08268023918661',
+                  timestamp: '1585385219118',
+                },
+                {
+                  lat: '59.340980249388444',
+                  long: '18.098701597194278',
+                  timestamp: '1585342019118',
+                },
+                {
+                  lat: '59.340980249388444',
+                  long: '18.088039145807826',
+                  timestamp: '1585298819118',
+                },
+                {
+                  lat: '59.33601877786503',
+                  long: '18.088039145807826',
+                  timestamp: '1585255619118',
+                },
+                {
+                  lat: '59.33591378886826',
+                  long: '18.07007236872157',
+                  timestamp: '1585212419118',
+                },
+                {
+                  lat: '59.336037586934395',
+                  long: '18.05184809956988',
+                  timestamp: '1585169219118',
+                },
+                {
+                  lat: '59.3339076431576',
+                  long: '18.059137906735355',
+                  timestamp: '1585126019118',
+                },
+                {
+                  lat: '59.33709019425402',
+                  long: '18.078007684092128',
+                  timestamp: '1585082819118',
+                },
+                {
+                  lat: '59.33709019425402',
+                  long: '18.063911669890487',
+                  timestamp: '1585039619118',
+                },
+                {
+                  lat: '59.33473084481672',
+                  long: '18.063889541666114',
+                  timestamp: '1584996419118',
+                },
+                {
+                  lat: '59.334364393976635',
+                  long: '18.07160189841231',
+                  timestamp: '1584953219118',
+                },
+              ];
+              return data;
+        }
+
+        function getStart() {
+          const mapOptions = {
+            center:new google.maps.LatLng(59.329444, 18.068611),
+            zoom: 12
+          }
+          const map = new google.maps.Map(document.getElementById("googleMap"), mapOptions);
+          const hotspots =getHotspotSweden();
+
+          for(hotspot of hotspots) {
+            let marker = new google.maps.Marker({
+              map: map,
+              position: new google.maps.LatLng(hotspot.lat, hotspot.long),
+              title: hotspot.timestamp
+            })
+          } 
+        }
+      </script>
+      <script src = "https://maps.googleapis.com/maps/api/js?"></script>
+  
+</body>
+</html> 
