@@ -1,18 +1,12 @@
-import { configureStore } from '@reduxjs/toolkit';
-import heatmapReducer from '../features/heatmap/heatmapSlice';
-import menuReducer from '../features/menu/menuSlice';
-import loginReducer from '../features/menu/loginSlice';
-import accountReducer from '../features/account/accountSlice';
-import riskscoreReducer from '../features/riskscore/riskSlice';
-import notificationsReducer from './notificationsSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import heatmapReducer from "../features/map/mapSlice";
+import loginReducer from "../features/login/loginSlice";
+import dashboardReducer from "../features/dashboard/dashboardSlice";
 
 export default configureStore({
   reducer: {
-    heatmap: heatmapReducer,
-    menu: menuReducer,
+    map: heatmapReducer,
     login: loginReducer,
-    account: accountReducer,
-    riskscore: riskscoreReducer,
-    notifications: notificationsReducer,
+    dashboard: dashboardReducer,
   },
 });
