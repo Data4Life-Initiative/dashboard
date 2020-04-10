@@ -1,5 +1,5 @@
 PROJECT := covid-19-mapview
-APP     := user-app
+APP     := dashboard
 NAME    = $(PROJECT)-$(APP)
 
 PROJECT_PACKAGE := github.com/igrant/$(APP)
@@ -37,7 +37,7 @@ DOCKER_TAG := $(GIT_BRANCH)-$(shell date +%Y%m%d%H%M%S)-$(GIT_COMMIT)
 .PHONY: help
 help:
 	@echo "------------------------------------------------------------------------"
-	@echo "MyData4Life user app"
+	@echo "MyData4Life dashboard"
 	@echo "------------------------------------------------------------------------"
 	@grep -E '^[0-9a-zA-Z_/%\-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
@@ -56,12 +56,11 @@ publish: $(DEPLOY_VERSION_F ILE) ## Publish latest production Docker image to do
 	gcloud docker -- push $(DEPLOY_VERSION)
 
 deploy/production: $(DEPLOY_VERSION_FILE) ## Deploy to K8s cluster (e.g. make deploy/{preview,staging,production})
-	kubectl set image deployment/user-app user-app=$(DEPLOY_VERSION)
+	kubectl set image deployment/dashboard-app dashboard-app=$(DEPLOY_VERSION)
 
 deploy/staging: $(DEPLOY_VERSION_FILE) ## Deploy to K8s cluster (e.g. make deploy/{preview,staging,staging})
-	kubectl set image deployment/user-app user-app=$(DEPLOY_VERSION)
+	kubectl set image deployment/dashboard-app dashboard-app=$(DEPLOY_VERSION)
 
 $(DEPLOY_VERSION_FILE):
 	@echo "Missing '$(DEPLOY_VERSION_FILE)' file. Run 'make build/docker/deployable'" >&2
 	exit 1
-
