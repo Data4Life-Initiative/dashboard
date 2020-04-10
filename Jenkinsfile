@@ -29,7 +29,7 @@ pipeline {
                 sh 'gcloud auth list'
                 sh 'make build/docker/deployable publish'
                 sh 'make deploy/staging'
-                
+
             }
         }
         stage('Deploy: production') {
