@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Fragment} from "react";
 import { Container, Typography, Select, MenuItem } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import MapContainer from "./features/map/MapContainer";
@@ -49,7 +49,6 @@ const useStyles = makeStyles({
   },
   dashboard: {
     ...containerStyle,
-    flexGrow: 1,
   },
   mapContainer: {
     ...containerStyle,
@@ -80,7 +79,7 @@ function App() {
             <Dashboard />
           </Container>
           <Container className={classes.mapContainer}>
-            <MapContainer />
+            <MapContainer  style={{position: "relative"}} />
           </Container>
         </Container>
       </Container>

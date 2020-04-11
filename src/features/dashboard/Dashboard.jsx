@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/styles";
 import { useDispatch, useSelector } from "react-redux";
 import StatComponent from "./StatComponent";
 import { selectDashboardStats, fetchDashboardStats } from "./dashboardSlice";
+import ReactMinimalPieChart from "react-minimal-pie-chart";
 
 const maxW = {
   width: "100%",
@@ -24,7 +25,8 @@ const useStyle = makeStyles({
   },
   grid: {
     height: "100%",
-    textAlign: "center"
+    textAlign: "center",
+    paddingTop: "15px"
   },
   gridItem: {
     display: "flex",
@@ -48,15 +50,120 @@ const Panel = () => {
       <Container className={classes.stats}>
         <Grid container className={classes.grid}>
           <Grid item xs={4} className={classes.gridItem}>
-            <StatComponent title="Immune" value={immune} />
+            <ReactMinimalPieChart
+                animate
+                animationDuration={500}
+                animationEasing="ease-out"
+                background="#f2f2f2"
+                cx={50}
+                cy={50}
+                data={[
+                  {
+                    color: '#080808',
+                    title: 'Immunized',
+                    value: 20
+                  },
+                ]}
+                label
+                labelPosition={50}
+                labelStyle={{
+                  fill: '#fff',
+                  fontFamily: 'sans-serif',
+                  fontSize: '15px'
+                }}
+                lengthAngle={360}
+                lineWidth={100}
+                paddingAngle={0}
+                radius={50}
+                rounded={false}
+                startAngle={0}
+                totalValue={100}
+                style={{
+                  height: '80px'
+                }}
+                viewBoxSize={[
+                  100,
+                  100
+                ]}
+            />
             <p>Immunized</p>
           </Grid>
           <Grid item xs={4} className={classes.gridItem}>
-            <StatComponent title="Naturally immune" value={naturally_immune} />
+            <ReactMinimalPieChart
+                animate
+                animationDuration={500}
+                animationEasing="ease-out"
+                background="#f2f2f2"
+                cx={50}
+                cy={50}
+                data={[
+                  {
+                    color: '#080808',
+                    title: 'Naturally immune',
+                    value: 45
+                  },
+                ]}
+                label
+                labelPosition={50}
+                labelStyle={{
+                  fill: '#fff',
+                  fontFamily: 'sans-serif',
+                  fontSize: '15px'
+                }}
+                lengthAngle={360}
+                lineWidth={100}
+                paddingAngle={0}
+                radius={50}
+                rounded={false}
+                startAngle={0}
+                totalValue={100}
+                style={{
+                  height: '80px'
+                }}
+                viewBoxSize={[
+                  100,
+                  100
+                ]}
+            />
             <p>Naturally immune</p>
           </Grid>
           <Grid item xs={4} className={classes.gridItem}>
-            <StatComponent title="Cured" value={cured} />
+            <ReactMinimalPieChart
+                animate
+                animationDuration={500}
+                animationEasing="ease-out"
+                background="#f2f2f2"
+                cx={50}
+                cy={50}
+                data={[
+                  {
+                    color: '#080808',
+                    title: 'Cured',
+                    value: 15
+                  },
+                ]}
+                label
+                labelPosition={50}
+                labelStyle={{
+                  fill: '#fff',
+                  fontFamily: 'sans-serif',
+                  fontSize: '15px'
+                }}
+                lengthAngle={360}
+                lineWidth={100}
+                paddingAngle={0}
+                radius={50}
+                rounded={false}
+                startAngle={0}
+                totalValue={100}
+                style={{
+                  height: '80px'
+                }}
+                viewBoxSize={[
+                  100,
+                  100
+                ]}
+            />
             <p>Cured</p>
           </Grid>
         </Grid>

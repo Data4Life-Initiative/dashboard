@@ -45,7 +45,8 @@ const useStyle = makeStyles({
     display: "flex",
     flexDirection: "column",
     alignItems: "stretch",
-    textAlign: "center"
+    textAlign: "center",
+    marginTop: 20
   },
   qr: {
     height: 200,

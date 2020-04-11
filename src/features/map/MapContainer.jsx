@@ -82,7 +82,7 @@ const MapComponent = () => {
       zIndex: 1,
     };
     return (
-      <Fragment style={{position: "relative"}}>
+      <Fragment>
         <Select style={{ marginLeft: 15, position: "absolute", zIndex: "1000", marginTop: "10px", width: "60%"}} input={<BootstrapInput />} value={1}>
           <MenuItem value={1}>COVID-19 PANDEMIC</MenuItem>
           <MenuItem value={2}>SEASONAL FLU</MenuItem>
