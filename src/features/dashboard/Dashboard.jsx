@@ -59,7 +59,7 @@ const Panel = () => {
                 cy={50}
                 data={[
                   {
-                    color: '#080808',
+                    color: '#000080',
                     title: 'Immunized',
                     value: 20
                   },
@@ -98,7 +98,7 @@ const Panel = () => {
                 cy={50}
                 data={[
                   {
-                    color: '#080808',
+                    color: '#000080',
                     title: 'Naturally immune',
                     value: 45
                   },
@@ -137,7 +137,7 @@ const Panel = () => {
                 cy={50}
                 data={[
                   {
-                    color: '#080808',
+                    color: '#000080',
                     title: 'Cured',
                     value: 15
                   },
@@ -164,7 +164,7 @@ const Panel = () => {
                   100
                 ]}
             />
-            <p>Cured</p>
+            <p>CURRENTLY INFECTED</p>
           </Grid>
         </Grid>
       </Container>
