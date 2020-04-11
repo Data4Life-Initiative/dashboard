@@ -48,11 +48,11 @@ const useStyles = makeStyles({
   },
   dashboard: {
     ...containerStyle,
-    flexGrow: 0.3,
+    flexGrow: 1,
   },
   mapContainer: {
     ...containerStyle,
-    flexGrow: 1,
+    flexGrow: 6,
   },
 });
 
