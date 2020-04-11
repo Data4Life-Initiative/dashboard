@@ -4,6 +4,8 @@ import { makeStyles } from "@material-ui/styles";
 import MapContainer from "./features/map/MapContainer";
 import Dashboard from "./features/dashboard/Dashboard";
 import Patient from "./features/patient/Patient";
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import Box from "@material-ui/core/Box";
 
 const containerStyle = {
   maxWidth: "100%",
@@ -19,7 +21,7 @@ const useStyles = makeStyles({
   },
   bar: {
     ...containerStyle,
-    backgroundColor: "green",
+    backgroundColor: "#d7d7d7",
     display: "inline-flex",
     lineHeight: 20,
     alignItems: "center",
@@ -60,11 +62,17 @@ function App() {
   return (
     <Container className={classes.withBar}>
       <Container className={classes.bar}>
-        <Typography>Stockholm Region</Typography>
+        <Typography style={{color: "#3e3e3e", fontWeight: "bold", textTransform: "uppercase", padding: "5px", fontSize: "1.2rem"}}>Stockholm Region</Typography>
         <Select style={{ marginLeft: 15 }} value={1}>
           <MenuItem value={1}>COVID-19 PANDEMIC</MenuItem>
           <MenuItem value={2}>SEASONAL FLU</MenuItem>
         </Select>
+
+        <Box style={{padding: "5px", marginLeft: "auto", display: "flex", alignItems: "center"}}>
+          <Typography style={{padding: "5px", fontStyle: "italic", marginLeft: "auto"}}>Logged in as Lotta Lundin</Typography>
+          <AccountCircleIcon style={{ fontSize: 40 }} />
+        </Box>
+
       </Container>
       <Container className={classes.app}>
         <Container className={classes.patient}>
