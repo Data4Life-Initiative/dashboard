@@ -15,6 +15,11 @@ import {
   Marker,
   MarkerClusterer,
 } from "@react-google-maps/api";
+import {MenuItem, Select} from "@material-ui/core";
+
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+import InputBase from '@material-ui/core/InputBase';
+
 
 
 const libraries = ["places", "visualization"];
@@ -39,6 +44,36 @@ const MapComponent = () => {
     if (isLoaded) dispatch(mapLoaded());
   }, [dispatch, isLoaded]);
 
+
+  const BootstrapInput = withStyles((theme) => ({
+    root: {
+      'label + &': {
+        marginTop: theme.spacing(3),
+      },
+    },
+    input: {
+      borderRadius: 20,
+      position: 'relative',
+      backgroundColor: "#f2f2f2",
+      border: '1px',
+      borderColor: '#333',
+      fontSize: 16,
+      padding: '10px 26px 10px 12px',
+      boxShadow: '0.5px 0.5px',
+      '&:focus': {
+        borderRadius: 20,
+        backgroundColor: "#f2f2f2",
+        borderColor: '#333',
+      },
+    },
+  }))(InputBase);
+
+  const useStyles = makeStyles((theme) => ({
+    margin: {
+      margin: theme.spacing(1),
+    },
+  }));
+
   const mapCenter = center;
   const renderMap = () => {
     const { google } = window;
@@ -47,7 +82,11 @@ const MapComponent = () => {
       zIndex: 1,
     };
     return (
-      <Fragment>
+      <Fragment style={{position: "relative"}}>
+        <Select style={{ marginLeft: 15, position: "absolute", zIndex: "1000", marginTop: "10px", width: "60%"}} input={<BootstrapInput />} value={1}>
+          <MenuItem value={1}>COVID-19 PANDEMIC</MenuItem>
+          <MenuItem value={2}>SEASONAL FLU</MenuItem>
+        </Select>
         <GoogleMap
           id="example-map"
           zoom={zoom}

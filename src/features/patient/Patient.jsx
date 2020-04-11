@@ -33,6 +33,10 @@ import {
   selectLocations,
   setCenter,
 } from "../map/mapSlice";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Input from "@material-ui/core/Input";
+import FormHelperText from "@material-ui/core/FormHelperText";
 
 const useStyle = makeStyles({
   container: {
@@ -117,11 +121,18 @@ const Panel = () => {
 
   return (
     <Container className={classes.container}>
+
+
+
       <Typography style={{fontWeight: "bold", fontSize: "18px"}}>ADD NEW PATIENTS</Typography>
       <Container className={classes.qr}>
         <Typography align="center">SCAN PATIENT QR CODE</Typography>
       </Container>
-      <Expansion title="Patients mobile number">+46 712 345 678</Expansion>
+      <Expansion title="Patients mobile number">
+        <FormControl>
+          <Input id="my-input" aria-describedby="my-helper-text" />
+        </FormControl>
+      </Expansion>
 
       <Expansion title="Locations">
         <List>

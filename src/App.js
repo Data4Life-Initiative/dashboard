@@ -64,10 +64,6 @@ function App() {
     <Container className={classes.withBar}>
       <Container className={classes.bar}>
         <Typography style={{color: "#3e3e3e", fontWeight: "bold", textTransform: "uppercase", padding: "5px", fontSize: "1.2rem"}}>Stockholm Region</Typography>
-        <Select style={{ marginLeft: 15 }} value={1}>
-          <MenuItem value={1}>COVID-19 PANDEMIC</MenuItem>
-          <MenuItem value={2}>SEASONAL FLU</MenuItem>
-        </Select>
 
         <Box style={{padding: "5px", marginLeft: "auto", display: "flex", alignItems: "center"}}>
           <Typography style={{padding: "5px", fontStyle: "italic", marginLeft: "auto"}}>Logged in as Lotta Lundin</Typography>
