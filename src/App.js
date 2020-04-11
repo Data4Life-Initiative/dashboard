@@ -38,6 +38,7 @@ const useStyles = makeStyles({
     ...containerStyle,
     width: "450px",
     flexGrow: 0,
+    backgroundColor: "#f2f2f2"
   },
   main: {
     ...containerStyle,

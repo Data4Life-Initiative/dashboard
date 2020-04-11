@@ -41,13 +41,15 @@ const useStyle = makeStyles({
     display: "flex",
     flexDirection: "column",
     alignItems: "stretch",
+    textAlign: "center"
   },
   qr: {
     height: 200,
     width: 250,
     marginTop: 10,
     marginBottom: 25,
-    borderStyle: "dotted",
+    border: "1px solid black",
+    backgroundColor: "#fff",
     display: "flex",
     alignItems: "center",
   },
@@ -115,7 +117,7 @@ const Panel = () => {
 
   return (
     <Container className={classes.container}>
-      <Typography>ADD NEW PATIENTS</Typography>
+      <Typography style={{fontWeight: "bold", fontSize: "18px"}}>ADD NEW PATIENTS</Typography>
       <Container className={classes.qr}>
         <Typography align="center">SCAN PATIENT QR CODE</Typography>
       </Container>
