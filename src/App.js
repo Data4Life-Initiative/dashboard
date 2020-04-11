@@ -19,6 +19,10 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
   },
+  logo: {
+    height: 50,
+    width: 50,
+  },
   bar: {
     ...containerStyle,
     backgroundColor: "#d7d7d7",
@@ -62,7 +66,9 @@ function App() {
   return (
     <Container className={classes.withBar}>
       <Container className={classes.bar}>
-        <Typography style={{color: "#3e3e3e", fontWeight: "bold", textTransform: "uppercase", padding: "5px", fontSize: "1.2rem"}}>Stockholm Region</Typography>
+        <img className={classes.logo} src="mainlogo.png"/>
+        <Typography style={{color: "#3e3e3e", fontWeight: "bold", textTransform: "uppercase", padding: "5px", fontSize: "1.2rem", width:"300px"}}>Data4Life</Typography>
+        <Typography style={{color: "#3e3e3e", fontWeight: "bold", textTransform: "uppercase", padding: "5px", fontSize: "1.1rem"}}>Stockholm Region</Typography>
 
         <Box style={{padding: "5px", marginLeft: "auto", display: "flex", alignItems: "center"}}>
           <Typography style={{padding: "5px", fontStyle: "italic", marginLeft: "auto"}}>Logged in as Lotta Lundin</Typography>
