@@ -8,6 +8,7 @@ import {
   VideoCameraOutlined,
   UploadOutlined,
 } from "@ant-design/icons";
+import "./style.css";
 
 const { Header, Sider, Content } = Layout;
 
@@ -24,7 +25,7 @@ export class LayoutComponent extends React.Component {
 
   render() {
     return (
-      <Layout>
+      <Layout className="setHeight">
         <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
           <div className="logo" />
           <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>

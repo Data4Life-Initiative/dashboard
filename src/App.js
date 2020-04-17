@@ -1,17 +1,19 @@
 import React from "react";
+import { Route, Switch } from "react-router-dom";
 
 import "./App.css";
-import { Button, DatePicker, Table } from "antd";
-import "./App.css";
-import { dataSource, columns } from "./dataSource";
-import { LayoutComponent } from "./components/shared";
-function App() {
+
+import { NewsContainer } from "./containers";
+import { LoginContainer } from "./containers";
+
+const App = (props, e) => {
   return (
-    <LayoutComponent>
-      <DatePicker></DatePicker> <Button type="primary">Button</Button>
-      <Table dataSource={dataSource} columns={columns} />;
-    </LayoutComponent>
+    <div>
+      <Switch>
+        <Route exact path="/" component={NewsContainer} />
+        <Route exact path="/login" component={LoginContainer} />
+      </Switch>
+    </div>
   );
-}
-
+};
 export default App;

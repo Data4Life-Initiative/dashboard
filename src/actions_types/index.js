@@ -1,0 +1,1 @@
+export { newActionTypes } from "./news";
