@@ -1,5 +1,7 @@
+import { newActionTypes } from "../../actions_types";
+
 export const getNews = () => {
   return {
-    type: "GET_NEWS",
+    type: newActionTypes.getNews,
   };
 };

@@ -1,7 +1,11 @@
 import { combineReducers } from "redux";
 import NewsReducer from "./news";
+import LoginReducer from "./login";
+import UserProfileReducer from "./user_profile";
 
 const dataReducers = combineReducers({
-  News: NewsReducer,
+  news: NewsReducer,
+  auth: LoginReducer,
+  user: UserProfileReducer,
 });
 export default dataReducers;
