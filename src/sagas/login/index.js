@@ -5,7 +5,8 @@ import {
   dashboardActionTypes,
 } from "../../actions_types";
 import { OtpSend, verifyOtp, adminSignIn } from "../../apis";
-import { push } from "react-router-redux";
+import { set } from "../../utils/clientStorageUtils";
+
 function* PostOtpSend(action) {
   try {
     const { data } = yield call(OtpSend, action.payload);
@@ -43,6 +44,7 @@ function* postAdminSignIn(action) {
   try {
     const { data } = yield call(adminSignIn, action.payload);
     if (data.status === 200) {
+      set("accessToken", data.data.access_token);
       action.payload.history.push("/admin-dashboard");
     }
     yield put({

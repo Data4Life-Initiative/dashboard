@@ -1,16 +1,13 @@
-import configurestore from "../../store/configurestore";
 import { message } from "antd";
-import { push } from "react-router-redux";
+import { get } from "../../utils/clientStorageUtils";
 
 /**
  * Interceptor for api response errors
  * handles redirect to login when token is expired
  */
 export function responseErrorInterceptor(error) {
-  const store = configurestore();
   const response = error.response;
-
-  if (response && response.status == 401) {
+  if (response && response.status === 401) {
     // session expired message
     message.info("Your session has expired. Please sign in again.");
     // go to login view
@@ -27,9 +24,8 @@ export function responseErrorInterceptor(error) {
  */
 export function requestInterceptor(config) {
   if (config) {
-    config.headers.common[
-      "Authorization"
-    ] = `Bearer  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLXR5cGUiOiJhZG1pbiIsInJhbmQiOjAuNTQwNTI4MzkzMTYxODk3OH0._1CvDWqCAUONahmwnK6lv8KF_tXnvxIyz-JVXgVuArs`;
+    const access_token = get("accessToken");
+    config.headers.common["Authorization"] = `Bearer ${access_token}`;
     return config;
   } else {
     return Promise.reject(config);

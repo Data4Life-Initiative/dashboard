@@ -5,7 +5,6 @@ import {
   selectLocations,
   selectCenter,
   selectZoom,
-  fetchHotspotData,
   mapLoaded,
 } from "./mapSlice";
 
@@ -17,7 +16,7 @@ import {
 } from "@react-google-maps/api";
 import { MenuItem, Select } from "@material-ui/core";
 
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import InputBase from "@material-ui/core/InputBase";
 
 const libraries = ["places", "visualization"];
@@ -66,15 +65,8 @@ const MapComponent = (props) => {
     },
   }))(InputBase);
 
-  const useStyles = makeStyles((theme) => ({
-    margin: {
-      margin: theme.spacing(1),
-    },
-  }));
-
   const mapCenter = center;
   const renderMap = () => {
-    console.log("data", data);
     const { google } = window;
     const options = {
       imagePath: `${process.env.PUBLIC_URL}/m`,

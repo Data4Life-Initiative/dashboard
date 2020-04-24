@@ -29,7 +29,6 @@ export const fetchDashboardStats = () => (dispatch, getState) => {
     headers: { Authorization: `Bearer ${access_token}` },
   };
   axios.get(endpoint, config).then((res) => {
-    console.log("res=>", res);
     const { data } = res ? res.data : [];
     dispatch(slice.actions.update(data));
   });

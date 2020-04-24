@@ -1,9 +1,15 @@
 import React from "react";
 import { Form, Input, Button } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-
+import Icon from "@ant-design/icons";
+import { remove } from "../../utils/clientStorageUtils";
+import { ReactComponent as YourSvg } from "../../arrow.e2be9365.svg";
 import "./style.css";
 export class AdminLoginComponent extends React.PureComponent {
+  componentDidMount() {
+    remove("accessToken");
+  }
+
   onFinish = (values) => {
     let payload = {
       email: values.username,
@@ -14,6 +20,20 @@ export class AdminLoginComponent extends React.PureComponent {
   };
 
   render() {
+    const suffix = (
+      <Button
+        htmlType="submit"
+        className="borderNone"
+        icon={
+          <img
+            alt=""
+            className="login-btn right-arrow"
+            src="https://data4life.igrant.io/static/media/arrow.e2be9365.svg"
+          />
+        }
+        loading={this.props.loading}
+      ></Button>
+    );
     return (
       <div className="login-container-main">
         <div className="login-container-main verticalCenter">
@@ -65,18 +85,20 @@ export class AdminLoginComponent extends React.PureComponent {
                 ]}
               >
                 <Input
+                  className="buttonClass"
                   prefix={
                     <LockOutlined className="site-form-item-icon colorGrey" />
                   }
                   type="password"
                   placeholder="Password"
+                  suffix={suffix}
                 />
               </Form.Item>
-              <div
+              {/* <div
                 className="login-divider-m0 ant-divider ant-divider-horizontal"
                 role="separator"
-              ></div>
-              <Form.Item className="aligncenter">
+              ></div> */}
+              {/* <Form.Item className="aligncenter">
                 <Button
                   type="primary"
                   size="default"
@@ -86,7 +108,7 @@ export class AdminLoginComponent extends React.PureComponent {
                 >
                   Login
                 </Button>
-              </Form.Item>
+              </Form.Item> */}
             </div>
           </Form>
         </div>

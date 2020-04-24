@@ -170,7 +170,11 @@ export class LoginComponent extends React.PureComponent {
               {verifyOtpDataStatus && (
                 <Form.Item className="aligncenter">
                   Not received your code?
-                  <a className="margin5px" onClick={this.onClickResend}>
+                  <a
+                    className="margin5px"
+                    href="#"
+                    onClick={this.onClickResend}
+                  >
                     Resend code
                   </a>
                 </Form.Item>

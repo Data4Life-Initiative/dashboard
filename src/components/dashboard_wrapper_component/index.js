@@ -6,6 +6,12 @@ import Box from "@material-ui/core/Box";
 import Dashboard from "../dashboard/Dashboard";
 import MapContainer from "../map/MapContainer";
 import Patient from "../patient/Patient";
+import Grow from "@material-ui/core/Grow";
+import Paper from "@material-ui/core/Paper";
+import Popper from "@material-ui/core/Popper";
+import MenuItem from "@material-ui/core/MenuItem";
+import MenuList from "@material-ui/core/MenuList";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
 const containerStyle = {
   maxWidth: "100%",
@@ -61,13 +67,47 @@ const useStyles = makeStyles({
     flexGrow: 6,
   },
 });
+
 const DashboradWrapperComponent = (props, e) => {
   const classes = useStyles();
-  console.log(props);
+  const [open, setOpen] = React.useState(false);
+  const anchorRef = React.useRef(null);
+
+  const handleToggle = () => {
+    setOpen((prevOpen) => !prevOpen);
+  };
+
+  const handleClose = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  function handleListKeyDown(event) {
+    if (event.key === "Tab") {
+      event.preventDefault();
+      setOpen(false);
+    }
+  }
+
+  const prevOpen = React.useRef(open);
+  React.useEffect(() => {
+    if (prevOpen.current === true && open === false) {
+      anchorRef.current.focus();
+    }
+
+    prevOpen.current = open;
+  }, [open]);
+
+  const logout = () => {
+    props.history.push("/adminlogin");
+  };
   return (
     <Container className={classes.withBar}>
       <Container className={classes.bar}>
-        <img className={classes.logo} src="mainlogo.png" />
+        <img className={classes.logo} src="mainlogo.png" alt="" />
         <Typography
           style={{
             color: "#3e3e3e",
@@ -105,7 +145,39 @@ const DashboradWrapperComponent = (props, e) => {
           >
             Logged in as Lotta Lundin
           </Typography>
-          <AccountCircleIcon style={{ fontSize: 40 }} />
+          <AccountCircleIcon
+            style={{ fontSize: 40 }}
+            onClick={handleToggle}
+            ref={anchorRef}
+          />
+          <Popper
+            open={open}
+            anchorEl={anchorRef.current}
+            keepMounted
+            transition
+            disablePortal
+          >
+            {({ TransitionProps, placement }) => (
+              <Grow
+                {...TransitionProps}
+                style={{
+                  transformOrigin:
+                    placement === "bottom" ? "center top" : "center bottom",
+                }}
+              >
+                <Paper id="menu-list-grow">
+                  <ClickAwayListener onClickAway={handleClose}>
+                    <MenuList
+                      autoFocusItem={open}
+                      onKeyDown={handleListKeyDown}
+                    >
+                      <MenuItem onClick={logout}>Logout</MenuItem>
+                    </MenuList>
+                  </ClickAwayListener>
+                </Paper>
+              </Grow>
+            )}
+          </Popper>
         </Box>
       </Container>
       <Container className={classes.app}>

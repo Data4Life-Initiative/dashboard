@@ -6,7 +6,6 @@ export class RegistrationComponent extends React.PureComponent {
   state = { prefixValue: "+91", value: "", current: 0, otp: "" };
   formRef = React.createRef();
   onFinish = (values) => {
-    console.log(values);
     let payload = {
       fullname: values.firstName + " " + values.lastName,
       email: values.email,

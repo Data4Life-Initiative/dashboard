@@ -6,7 +6,7 @@ import get from "lodash.get";
 function* getDashboardStat(action) {
   try {
     const responseData = yield call(getDashboardStats, action.payload);
-    console.log(get(responseData, `data`));
+
     yield put({
       type: dashboardActionTypes.dashbordStatsReceived,
       json: get(responseData, `data.data`) || [{ error: responseData }],

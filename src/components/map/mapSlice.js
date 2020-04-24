@@ -44,10 +44,9 @@ export const selectCenter = (state) =>
 export const selectZoom = (state) => (state.data.map ? state.data.map.zoom : 1);
 export const selectMapLoaded = (state) =>
   state.data.map ? state.data.map.loaded : true;
-export const selectLocations = (state) => {
-  console.log("state.data.map.locations", state.data.map.locations);
-  return state.data.map ? state.data.map.locations : [];
-};
+export const selectLocations = (state) =>
+  state.data.map ? state.data.map.locations : [];
+
 const toLatLng = R.map((e) => ({
   lat: parseFloat(e.lat),
   lng: parseFloat(e.long),
@@ -62,7 +61,7 @@ const processData = R.compose(
 const endpoint =
   "https://mydata4life-api.igrant.io/v1/data-entry/disease-hotspots/";
 export const fetchHotspotData = () => (dispatch, getState) => {
-  const { access_token } = getState().login;
+  //const { access_token } = getState().login;
   const config = {
     headers: {
       Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLXR5cGUiOiJhZG1pbiIsInJhbmQiOjAuNTQwNTI4MzkzMTYxODk3OH0._1CvDWqCAUONahmwnK6lv8KF_tXnvxIyz-JVXgVuArs`,

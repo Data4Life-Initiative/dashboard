@@ -69,9 +69,12 @@
   cursor: pointer;
   margin-top: 4px;
 }
-.ant-input-suffix {
+.buttonClass .ant-input-suffix {
   right: 12px !important;
   margin-left: 0px !important;
+  transform: translateY(-50%) !important;
+  position: absolute !important;
+  top: 40% !important;
 }
 .login-form .ant-input-affix-wrapper {
   border: none !important;
@@ -129,4 +132,7 @@
 }
 .aligncenter {
   text-align: center;
+}
+.borderNone {
+  border: none !important;
 }

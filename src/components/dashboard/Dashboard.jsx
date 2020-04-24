@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import { Container, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { useDispatch, useSelector } from "react-redux";
-import StatComponent from "./StatComponent";
-import { selectDashboardStats, fetchDashboardStats } from "./dashboardSlice";
+import { selectDashboardStats } from "./dashboardSlice";
 import ReactMinimalPieChart from "react-minimal-pie-chart";
 import { getDashboardStats } from "../../actions";
 

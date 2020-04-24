@@ -27,18 +27,10 @@ import { makeStyles } from "@material-ui/styles";
 import { StandaloneSearchBox } from "@react-google-maps/api";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  selectMapLoaded,
-  addLocation,
-  selectLocations,
-  setCenter,
-} from "../map/mapSlice";
+import { selectLocations } from "../map/mapSlice";
 import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import { addLocationData, setCenterData } from "../../actions";
-
 const useStyle = makeStyles({
   container: {
     height: "100%",
@@ -106,7 +98,6 @@ const Panel = () => {
   };
 
   const addPlace = (type) => {
-    console.log("type", place);
     const loc = place[0].geometry.location;
     const latLng = { lat: loc.lat(), lng: loc.lng() };
     const newLocation = {
@@ -120,9 +111,9 @@ const Panel = () => {
   };
 
   const search = useRef(null);
-  const mapLoaded = useSelector(selectMapLoaded);
+
   const locations = useSelector(selectLocations);
-  console.log("locations", locations);
+
   return (
     <Container className={classes.container}>
       <Typography style={{ fontWeight: "bold", fontSize: "18px" }}>
