@@ -1,7 +1,6 @@
 import React from "react";
-import { Form, Input, Button } from "antd";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import Icon from "@ant-design/icons";
+import { Form, Input, Button, Spin } from "antd";
+import { UserOutlined, LockOutlined, LoadingOutlined } from "@ant-design/icons";
 import { remove } from "../../utils/clientStorageUtils";
 import { ReactComponent as YourSvg } from "../../arrow.e2be9365.svg";
 import "./style.css";
@@ -20,6 +19,8 @@ export class AdminLoginComponent extends React.PureComponent {
   };
 
   render() {
+    const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+
     const suffix = (
       <Button
         htmlType="submit"
@@ -91,7 +92,9 @@ export class AdminLoginComponent extends React.PureComponent {
                   }
                   type="password"
                   placeholder="Password"
-                  suffix={suffix}
+                  suffix={
+                    this.props.loading ? <Spin indicator={antIcon} /> : suffix
+                  }
                 />
               </Form.Item>
               {/* <div

@@ -6,7 +6,7 @@ import {
 } from "../../actions_types";
 import { OtpSend, verifyOtp, adminSignIn } from "../../apis";
 import { set } from "../../utils/clientStorageUtils";
-
+import { message } from "antd";
 function* PostOtpSend(action) {
   try {
     const { data } = yield call(OtpSend, action.payload);
@@ -64,12 +64,16 @@ function* postAdminSignIn(action) {
     yield put({
       type: dashboardActionTypes.dashbordStatsReceived,
       json: (data && {
-        currently_infected: data.data.currently_infected,
-        immunized: data.data.immunized,
+        cured: data.data.currently_infected,
+        immune: data.data.immunized,
         naturally_immune: data.data.naturally_immune,
       }) || [{ error: data.message }],
     });
   } catch (ex) {
+    message.error(ex.response.data.data.msg);
+    yield put({
+      type: loginActionTypes.adminSignInError,
+    });
     console.log(ex);
   }
 }

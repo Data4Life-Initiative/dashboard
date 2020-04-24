@@ -6,13 +6,8 @@ import Box from "@material-ui/core/Box";
 import Dashboard from "../dashboard/Dashboard";
 import MapContainer from "../map/MapContainer";
 import Patient from "../patient/Patient";
-import Grow from "@material-ui/core/Grow";
-import Paper from "@material-ui/core/Paper";
-import Popper from "@material-ui/core/Popper";
 import MenuItem from "@material-ui/core/MenuItem";
-import MenuList from "@material-ui/core/MenuList";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-
+import Menu from "@material-ui/core/Menu";
 const containerStyle = {
   maxWidth: "100%",
   padding: 0,
@@ -73,34 +68,15 @@ const DashboradWrapperComponent = (props, e) => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
 
-  const handleToggle = () => {
-    setOpen((prevOpen) => !prevOpen);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = (event) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
-      return;
-    }
-
-    setOpen(false);
+  const handleClose = () => {
+    setAnchorEl(null);
   };
-
-  function handleListKeyDown(event) {
-    if (event.key === "Tab") {
-      event.preventDefault();
-      setOpen(false);
-    }
-  }
-
-  const prevOpen = React.useRef(open);
-  React.useEffect(() => {
-    if (prevOpen.current === true && open === false) {
-      anchorRef.current.focus();
-    }
-
-    prevOpen.current = open;
-  }, [open]);
-
   const logout = () => {
     props.history.push("/adminlogin");
   };
@@ -147,37 +123,18 @@ const DashboradWrapperComponent = (props, e) => {
           </Typography>
           <AccountCircleIcon
             style={{ fontSize: 40 }}
-            onClick={handleToggle}
+            onClick={handleClick}
             ref={anchorRef}
           />
-          <Popper
-            open={open}
-            anchorEl={anchorRef.current}
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
             keepMounted
-            transition
-            disablePortal
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
           >
-            {({ TransitionProps, placement }) => (
-              <Grow
-                {...TransitionProps}
-                style={{
-                  transformOrigin:
-                    placement === "bottom" ? "center top" : "center bottom",
-                }}
-              >
-                <Paper id="menu-list-grow">
-                  <ClickAwayListener onClickAway={handleClose}>
-                    <MenuList
-                      autoFocusItem={open}
-                      onKeyDown={handleListKeyDown}
-                    >
-                      <MenuItem onClick={logout}>Logout</MenuItem>
-                    </MenuList>
-                  </ClickAwayListener>
-                </Paper>
-              </Grow>
-            )}
-          </Popper>
+            <MenuItem onClick={logout}>Logout</MenuItem>
+          </Menu>
         </Box>
       </Container>
       <Container className={classes.app}>

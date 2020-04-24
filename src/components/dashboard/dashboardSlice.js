@@ -17,8 +17,9 @@ export const slice = createSlice({
   },
 });
 
-export const selectDashboardStats = (state) =>
-  state.data.dashboard ? state.data.dashboard.stats : {};
+export const selectDashboardStats = (state) => {
+  return state.data ? state.data.dashboard.stats : {};
+};
 
 const endpoint =
   "https://mydata4life-api.igrant.io/v1/data-entry/dashboard/stats/";

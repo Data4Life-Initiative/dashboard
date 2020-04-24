@@ -24,6 +24,9 @@ const LoginReducer = (state = initialState, action) => {
       return { ...state, admin: action.json, loading: false };
     case loginActionTypes.accessToken:
       return { ...state, accessToken: action.value, loading: false };
+    case loginActionTypes.adminSignInError:
+      return { ...state, loading: false };
+
     default:
       return state;
   }

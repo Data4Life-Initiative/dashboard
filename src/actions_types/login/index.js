@@ -7,4 +7,5 @@ export const loginActionTypes = {
   adminSignIn: "ADMIN_SIGNIN",
   adminSignInSuccessfully: "ADMIN_SIGNIN_SUCCESSFULLY",
   accessToken: "ACCESS_TOKEN",
+  adminSignInError: "ADMIN_SIGNIN_ERROR",
 };
