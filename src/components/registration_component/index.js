@@ -24,7 +24,7 @@ export class RegistrationComponent extends React.PureComponent {
 
   render() {
     return (
-      <div className="registration-container-main">
+      <div className="registration-container-main verticalCenter">
         <div className="logo">
           <img
             alt=""
@@ -36,7 +36,7 @@ export class RegistrationComponent extends React.PureComponent {
         <Form
           ref={this.formRef}
           name="register"
-          labelCol={{ span: 8 }}
+          labelCol={{ span: 10 }}
           wrapperCol={{ span: 24 }}
           onFinish={this.onFinish}
           className="registration-form"
@@ -119,17 +119,9 @@ export class RegistrationComponent extends React.PureComponent {
           </Form.Item>
           <Form.Item
             name="agreement"
-            wrapperCol={{
-              xs: {
-                span: 24,
-                offset: 0,
-              },
-              sm: {
-                span: 16,
-                offset: 8,
-              },
-            }}
+            label=" "
             valuePropName="checked"
+            className="custom-check"
             rules={[
               {
                 validator: (_, value) =>

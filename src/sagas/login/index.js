@@ -1,7 +1,11 @@
 import { call, put, takeLatest, all } from "redux-saga/effects";
-import { loginActionTypes, userActionTypes } from "../../actions_types";
+import {
+  loginActionTypes,
+  userActionTypes,
+  dashboardActionTypes,
+} from "../../actions_types";
 import { OtpSend, verifyOtp, adminSignIn } from "../../apis";
-
+import { push } from "react-router-redux";
 function* PostOtpSend(action) {
   try {
     const { data } = yield call(OtpSend, action.payload);
@@ -37,12 +41,13 @@ export function* postVerifyOtpAction() {
 
 function* postAdminSignIn(action) {
   try {
-    console.log(action);
     const { data } = yield call(adminSignIn, action.payload);
-    console.log("data", data);
+    if (data.status === 200) {
+      action.payload.history.push("/admin-dashboard");
+    }
     yield put({
       type: loginActionTypes.adminSignInSuccessfully,
-      json: { isAdminSignedIn: data.status == 200 } || [
+      json: { isAdminSignedIn: data.status === 200 } || [
         { error: data.message },
       ],
     });
@@ -53,6 +58,14 @@ function* postAdminSignIn(action) {
     yield put({
       type: userActionTypes.userProfile,
       json: (data && data.data.profile) || [{ error: data.message }],
+    });
+    yield put({
+      type: dashboardActionTypes.dashbordStatsReceived,
+      json: (data && {
+        currently_infected: data.data.currently_infected,
+        immunized: data.data.immunized,
+        naturally_immune: data.data.naturally_immune,
+      }) || [{ error: data.message }],
     });
   } catch (ex) {
     console.log(ex);

@@ -10,8 +10,7 @@ import "antd/dist/antd.css";
 import "./index.css";
 
 const history = createBrowserHistory();
-const initialState = window.initialReduxState;
-const store = configureStore(history, initialState);
+const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>

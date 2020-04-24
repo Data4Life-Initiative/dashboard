@@ -46,7 +46,7 @@
   border: none !important;
   outline: 0;
 }
-.ant-input-affix-wrapper:hover {
+.login-form .ant-input-affix-wrapper:hover {
   border: none;
   outline: none;
 }
@@ -58,9 +58,7 @@
 }
 
 .login-form .login-form-button {
-  width: 100%;
-  height: 42px;
-  font-size: 18px;
+  margin-bottom: 4px;
 }
 .right-arrow {
   -webkit-filter: opacity(0.6);
@@ -75,25 +73,25 @@
   right: 12px !important;
   margin-left: 0px !important;
 }
-.ant-input-affix-wrapper {
+.login-form .ant-input-affix-wrapper {
   border: none !important;
   outline: none !important;
 }
-.ant-input-affix-wrapper:hover {
+.login-form .ant-input-affix-wrapper:hover {
   border: none !important;
   outline: none !important;
 }
-.ant-input-affix-wrapper-focused {
+.login-form .ant-input-affix-wrapper-focused {
   border: none !important;
   outline: none !important;
   box-shadow: none;
 }
-.ant-input-affix-wrapper:focus {
+.login-form .ant-input-affix-wrapper:focus {
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
 }
-.ant-input-affix-wrapper-focused {
+.login-form .ant-input-affix-wrapper-focused {
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
@@ -131,4 +129,26 @@
 }
 .aligncenter {
   text-align: center;
+}
+.verticalCenter {
+  margin: 0;
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.spaceVertical,
+.ant-form-item-control-input-content {
+  justify-content: center;
+  display: flex !important;
+}
+.margin5px {
+  margin-left: 5px !important;
+}
+.spaceVertical .ant-form-item-control-input-content span {
+  height: 35px !important;
+}
+.margin-bottom10 {
+  margin-bottom: 10px !important;
 }

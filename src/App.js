@@ -3,7 +3,8 @@ import { Route, Switch } from "react-router-dom";
 
 import "./App.css";
 
-import { NewsContainer } from "./containers";
+import { DashboradWrapperContainer } from "./containers/dashboard_wrapper_container";
+
 import {
   LoginContainer,
   AdminLoginContainer,
@@ -12,14 +13,16 @@ import {
 
 const App = (props, e) => {
   return (
-    <div>
-      <Switch>
-        <Route exact path="/" component={NewsContainer} />
-        <Route exact path="/login" component={LoginContainer} />
-        <Route exact path="/adminlogin" component={AdminLoginContainer} />
-        <Route exact path="/registration" component={RegistrationContainer} />
-      </Switch>
-    </div>
+    <Switch>
+      <Route exact path="/" component={LoginContainer} />
+      <Route
+        exact
+        path="/admin-dashboard"
+        component={DashboradWrapperContainer}
+      />
+      <Route exact path="/adminlogin" component={AdminLoginContainer} />
+      <Route exact path="/registration" component={RegistrationContainer} />
+    </Switch>
   );
 };
 export default App;

@@ -6,7 +6,7 @@ function* PostUserRegistration(action) {
   try {
     const responseData = yield call(userRegistration, action.payload);
 
-    if (responseData.data.status == 200) {
+    if (responseData.data.status === 200) {
       message.success(responseData.data.data.msg);
     } else message.error(responseData.data.data.msg);
 

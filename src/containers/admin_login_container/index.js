@@ -7,7 +7,8 @@ const mapDipatchToProps = {
 
 const mapStateToProps = (state) => {
   return {
-    adminSignInData: state.data.auth.adminSignIn,
+    loading: state.data.auth.loading,
+    adminSignInData: state.data.auth.admin,
   };
 };
 

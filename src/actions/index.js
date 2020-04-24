@@ -9,3 +9,9 @@ export {
   adminSignInSuccessfully,
 } from "./login";
 export { userRegistration, userRegistrationStart } from "./registration";
+export {
+  getDashboardStats,
+  getHotspotData,
+  addLocationData,
+  setCenterData,
+} from "./dashboard";
