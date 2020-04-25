@@ -1,0 +1,46 @@
+.registration-form {
+    border: 1px solid #cecece !important;
+    padding: 20px !important;
+    border-radius: 4px !important;
+}
+
+.registration-title {
+    font-size: 20px;
+
+    color: #000;
+}
+.custom-button {
+    margin: 5% 0 0 0 !important;
+}
+
+.registration-container,
+.registration-container-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex-direction: column;
+}
+.registration-container {
+    height: 100% !important;
+}
+.registration-container-main .logo {
+    width: 150px;
+    height: 150px;
+    padding: 16px !important;
+}
+
+.registration-container-main .logo > img {
+    width: 100%;
+    border-radius: 50%;
+}
+.margin-left5 {
+    margin-left: 0%;
+}
+
+.custom-check .ant-form-item-label > label::after {
+    content: "" !important;
+}
+.ant-anchor-ink::before {
+    background-color: transparent !important;
+}

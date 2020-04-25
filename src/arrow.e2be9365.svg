@@ -1,0 +1,31 @@
+ <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="50"
+      height="50"
+      version="1.1"
+      viewBox="0 0 13.229 13.229"
+    >
+      <g transform="translate(0 -283.77)">
+        <g>
+          <g>
+            <g fillOpacity="0.893" strokeDasharray="none" strokeMiterlimit="4">
+              <circle
+                cx="6.615"
+                cy="290.385"
+                r="6.361"
+                fill="none"
+                stroke="#333"
+                strokeOpacity="1"
+                strokeWidth="0.476"
+              ></circle>
+              <path
+                fill="#333"
+                stroke="none"
+                strokeWidth="0.015"
+                d="M7.195 287.23v1.86H2.226v2.59h4.97v1.86l1.903-1.577 1.904-1.578-1.904-1.577z"
+              ></path>
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
