@@ -13,7 +13,7 @@ axiosInstance.interceptors.request.use(requestInterceptor);
  * Dashboard  Api
  * @return {Promise} Promise with details
  */
-export function getDashboardStats(payload) {
+export function getDashboardStats() {
   //   const config = {
   //     headers: {
   //       Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLXR5cGUiOiJhZG1pbiIsInJhbmQiOjAuNTQwNTI4MzkzMTYxODk3OH0._1CvDWqCAUONahmwnK6lv8KF_tXnvxIyz-JVXgVuArs`,
@@ -28,14 +28,9 @@ export function getDashboardStats(payload) {
  * Get Hotspot data  Api
  * @return {Promise} Promise with details
  */
-export function getHotspotData(payload) {
-  const config = {
-    headers: {
-      Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLXR5cGUiOiJhZG1pbiIsInJhbmQiOjAuNTQwNTI4MzkzMTYxODk3OH0._1CvDWqCAUONahmwnK6lv8KF_tXnvxIyz-JVXgVuArs`,
-    },
-  };
+export function getHotspotData() {
   return axiosInstance.get(
-    "https://mydata4life-api.igrant.io/v1/data-entry/disease-hotspots/",
-    config
+    "https://mydata4life-api.igrant.io/v1/data-entry/disease-hotspots/"
+    // config
   );
 }
