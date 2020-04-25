@@ -50,10 +50,18 @@ const useStyle = makeStyles({
         backgroundColor: "#fff",
         display: "flex",
         alignItems: "center",
+        position: 'relative'
     },
     action: {
         marginTop: 10,
     },
+
+    qrImage: {
+        position: 'absolute',
+        top: 0,
+        height: '99.99%',
+        margin: 'auto'
+    }
 });
 
 const Expansion = (props) => {
@@ -124,7 +132,7 @@ const Panel = () => {
                 ADD NEW PATIENTS
             </Typography>
             <Container className={classes.qr}>
-                <Typography align="center">SCAN PATIENT QR CODE</Typography>
+                <img src="/qr_image.png" alt="QR Code" className={classes.qrImage}></img>
             </Container>
             <Expansion title="Patients mobile number">
                 <FormControl>
