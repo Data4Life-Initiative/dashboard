@@ -1,8 +1,11 @@
 import React from "react";
-import { Form, Input, Button, Spin } from "antd";
+import { Form, Input, Button, Spin, Checkbox, Typography } from "antd";
 import { UserOutlined, LockOutlined, LoadingOutlined } from "@ant-design/icons";
 import { remove } from "../../utils/clientStorageUtils";
 import "./style.css";
+
+const { Text } = Typography;
+
 export class AdminLoginComponent extends React.PureComponent {
     componentDidMount() {
         remove("accessToken");
@@ -117,6 +120,23 @@ export class AdminLoginComponent extends React.PureComponent {
               </Form.Item> */}
                         </div>
                     </Form>
+                    <Form>
+                    <Form.Item name="remember" valuePropName="checked">
+                                <Checkbox><Text strong>Remember me</Text></Checkbox>
+                            </Form.Item>
+                    </Form>
+                </div>
+                <div className="footer" style={{
+                    textAlign: 'center',
+                    position: 'absolute',
+                    bottom: '10px'
+                }}>
+                    <div>
+                        <small>Copyright © 2019 LCubed AB, Sweden. All rights reserved.</small>
+                    </div>
+                    <div>
+                        <a>Language</a>
+                    </div>
                 </div>
             </div>
         );
