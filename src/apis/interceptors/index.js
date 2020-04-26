@@ -11,7 +11,7 @@ export function responseErrorInterceptor(error) {
     // session expired message
     message.info("Your session has expired. Please sign in again.");
     // go to login view
-    window.location.href = "/adminlogin";
+    window.location.href = "/";
     return Promise.reject(error);
   } else {
     return Promise.reject(error);
