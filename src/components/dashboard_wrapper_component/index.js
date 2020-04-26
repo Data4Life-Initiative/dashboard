@@ -77,7 +77,7 @@ const DashboradWrapperComponent = (props, e) => {
         setAnchorEl(null);
     };
     const logout = () => {
-        props.history.push("/adminlogin");
+        props.history.push("/");
     };
     return (
         <Container className={classes.withBar}>
