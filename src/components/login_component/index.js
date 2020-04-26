@@ -73,7 +73,7 @@ export class LoginComponent extends React.PureComponent {
                             src="https://storage.googleapis.com/igrant-api-images/privacy-dashboard/data4life.jpeg"
                         />
                     </div>
-                    <p className="login-title">Log in to your Dashboard</p>
+                    <p className="login-title">Login to Data4Life Dashboard</p>
                     <Form
                         ref={this.formRef}
                         name="normal_login"
