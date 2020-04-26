@@ -1,10 +1,11 @@
 import React from "react";
-import { Form, Input, Button, Spin, Checkbox, Typography } from "antd";
-import { UserOutlined, LockOutlined, LoadingOutlined } from "@ant-design/icons";
-import { remove } from "../../utils/clientStorageUtils";
+import {Form, Input, Button, Spin, Checkbox, Typography} from "antd";
+import {UserOutlined, LockOutlined, LoadingOutlined} from "@ant-design/icons";
+import {remove} from "../../utils/clientStorageUtils";
 import "./style.css";
+import {Link} from "react-router-dom";
 
-const { Text } = Typography;
+const {Text} = Typography;
 
 export class AdminLoginComponent extends React.PureComponent {
     componentDidMount() {
@@ -21,7 +22,7 @@ export class AdminLoginComponent extends React.PureComponent {
     };
 
     render() {
-        const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+        const antIcon = <LoadingOutlined style={{fontSize: 24}} spin/>;
 
         const suffix = (
             <Button
@@ -69,7 +70,7 @@ export class AdminLoginComponent extends React.PureComponent {
                             >
                                 <Input
                                     prefix={
-                                        <UserOutlined className="site-form-item-icon colorGrey" />
+                                        <UserOutlined className="site-form-item-icon colorGrey"/>
                                     }
                                     placeholder="Username"
                                 />
@@ -90,13 +91,13 @@ export class AdminLoginComponent extends React.PureComponent {
                                 <Input
                                     className="buttonClass"
                                     prefix={
-                                        <LockOutlined className="site-form-item-icon colorGrey" />
+                                        <LockOutlined className="site-form-item-icon colorGrey"/>
                                     }
                                     type="password"
                                     placeholder="Password"
                                     suffix={
                                         this.props.loading ? (
-                                            <Spin indicator={antIcon} />
+                                            <Spin indicator={antIcon}/>
                                         ) : (
                                             suffix
                                         )
@@ -121,9 +122,13 @@ export class AdminLoginComponent extends React.PureComponent {
                         </div>
                     </Form>
                     <Form>
-                    <Form.Item name="remember" valuePropName="checked">
-                                <Checkbox><Text strong>Remember me</Text></Checkbox>
-                            </Form.Item>
+                        <div className="register-actions">
+                            <Link to={`/registration`}>Click here </Link>
+                            <span>to enroll as data entry admin.</span>
+                        </div>
+                        <Form.Item name="remember" valuePropName="checked">
+                            <Checkbox><Text strong>Remember me</Text></Checkbox>
+                        </Form.Item>
                     </Form>
                 </div>
                 <div className="footer" style={{
