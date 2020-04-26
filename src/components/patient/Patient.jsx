@@ -46,8 +46,8 @@ const useStyle = makeStyles({
         width: 250,
         marginTop: 10,
         marginBottom: 25,
-        border: "1px solid black",
-        backgroundColor: "#fff",
+        border: "none",
+        backgroundColor: "transparent",
         display: "flex",
         alignItems: "center",
         position: 'relative'
