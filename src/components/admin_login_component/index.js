@@ -47,7 +47,7 @@ export class AdminLoginComponent extends React.PureComponent {
                             src="https://storage.googleapis.com/igrant-api-images/privacy-dashboard/data4life.jpeg"
                         />
                     </div>
-                    <p className="login-title">Login to Data4Life Dashboard</p>
+                    <p className="login-title">Login to Data4Life Admin Dashboard</p>
                     <Form
                         name="normal_login"
                         className="login-form"
