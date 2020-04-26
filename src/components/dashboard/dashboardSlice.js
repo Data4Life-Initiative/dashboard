@@ -5,9 +5,9 @@ export const slice = createSlice({
   name: "dashboard",
   initialState: {
     stats: {
-      immune: 0,
+      immunized: 0,
       naturally_immune: 0,
-      cured: 0,
+      currently_infected: 0,
     },
   },
   reducers: {
@@ -22,7 +22,7 @@ export const selectDashboardStats = (state) => {
 };
 
 const endpoint =
-  "https://mydata4life-api.igrant.io/v1/data-entry/dashboard/stats/";
+    "https://mydata4life-api.igrant.io/v1/data-entry/dashboard/stats/";
 
 export const fetchDashboardStats = () => (dispatch, getState) => {
   const { access_token } = getState().login;

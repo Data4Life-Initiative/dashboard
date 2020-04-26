@@ -39,7 +39,7 @@ const useStyle = makeStyles({
 const Panel = () => {
   const dispatch = useDispatch();
   const classes = useStyle();
-  const { immune, naturally_immune, cured } = useSelector(selectDashboardStats);
+  const { immunized, naturally_immune, currently_infected } = useSelector(selectDashboardStats);
 
   useEffect(() => {
     //dispatch(fetchDashboardStats());
@@ -62,7 +62,7 @@ const Panel = () => {
                 {
                   color: "#000080",
                   title: "Immunized",
-                  value: immune,
+                  value: immunized,
                 },
               ]}
               label
@@ -134,7 +134,7 @@ const Panel = () => {
                 {
                   color: "#000080",
                   title: "Cured",
-                  value: cured,
+                  value: currently_infected,
                 },
               ]}
               label
