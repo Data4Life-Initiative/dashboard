@@ -61,12 +61,6 @@ export class AdminLoginComponent extends React.PureComponent {
                             <Form.Item
                                 name="username"
                                 className="ant-col ant-form-item-control"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: "This field is required!",
-                                    },
-                                ]}
                             >
                                 <Input
                                     prefix={
@@ -81,12 +75,6 @@ export class AdminLoginComponent extends React.PureComponent {
                             ></div>
                             <Form.Item
                                 name="password"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: "This field is required!",
-                                    },
-                                ]}
                             >
                                 <Input
                                     className="buttonClass"
@@ -122,10 +110,6 @@ export class AdminLoginComponent extends React.PureComponent {
                         </div>
                     </Form>
                     <Form>
-                        <div className="register-actions">
-                            <Link to={`/registration`}>Click here </Link>
-                            <span>to enroll as data entry admin.</span>
-                        </div>
                         <Form.Item name="remember" valuePropName="checked">
                             <Checkbox><Text strong>Remember me</Text></Checkbox>
                         </Form.Item>
