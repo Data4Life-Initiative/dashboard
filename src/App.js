@@ -14,13 +14,12 @@ import {
 const App = (props, e) => {
   return (
     <Switch>
-      <Route exact path="/" component={LoginContainer} />
+      <Route exact path="/" component={AdminLoginContainer} />
       <Route
         exact
         path="/admin-dashboard"
         component={DashboradWrapperContainer}
       />
-      <Route exact path="/adminlogin" component={AdminLoginContainer} />
       <Route exact path="/registration" component={RegistrationContainer} />
     </Switch>
   );
