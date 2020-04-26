@@ -48,6 +48,7 @@ export class AdminLoginComponent extends React.PureComponent {
                         />
                     </div>
                     <p className="login-title">Login to Data4Life Admin Dashboard</p>
+
                     <Form
                         name="normal_login"
                         className="login-form"
@@ -57,6 +58,11 @@ export class AdminLoginComponent extends React.PureComponent {
                         }}
                         onFinish={this.onFinish}
                     >
+                        <div className="login-notice-text">
+                            <p>Please do not attempt to login to the system </p>
+                            <p>if you are not authorised to do so.</p>
+                        </div>
+
                         <div className="login-input-group">
                             <Form.Item
                                 name="username"
