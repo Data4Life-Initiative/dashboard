@@ -1,5 +1,6 @@
 import React, { useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Col, Card, Row } from "antd";
 import {
     selectHeatmapData,
     selectLocations,
@@ -14,7 +15,7 @@ import {
     Marker,
     MarkerClusterer,
 } from "@react-google-maps/api";
-import { MenuItem, Select } from "@material-ui/core";
+import { MenuItem, Select, Grid } from "@material-ui/core";
 
 import { withStyles } from "@material-ui/core/styles";
 import InputBase from "@material-ui/core/InputBase";
@@ -90,10 +91,12 @@ const MapComponent = (props) => {
                     <MenuItem value={1}>COVID-19 PANDEMIC</MenuItem>
                     <MenuItem value={2}>SEASONAL FLU</MenuItem>
                 </Select>
+
                 <GoogleMap
                     id="example-map"
                     zoom={zoom}
                     center={mapCenter}
+                    mapContainerClassName="adjust-map"
                     mapContainerStyle={{
                         height: "100%",
                         width: "100%",
