@@ -1,0 +1,22 @@
+.mapSelect {
+    margin-left: 15px !important;
+    position: absolute !important;
+    z-index: 1000;
+    margin-top: 10px !important;
+    width: 60%;
+}
+.mapSelect input {
+    border-radius: 20;
+    position: relative;
+    background-color: #f2f2f2;
+    border: 1px;
+    border-color: #333;
+    font-size: 16;
+    padding: 10px 26px 10px 12px;
+    box-shadow: 0.5px 0.5px;
+    /* "&:focus": {
+         borderRadius: 20;
+         backgroundColor: "#f2f2f2";
+         borderColor: "#333";
+     } */
+}

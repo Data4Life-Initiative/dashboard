@@ -1,0 +1,61 @@
+.container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    text-align: left;
+    margin-top: 20px;
+}
+
+.qr {
+    height: 200px;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    border: none;
+    background-color: "transparent";
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+.action {
+    margin-top: 10px;
+}
+
+.qrImage {
+    position: relative;
+    top: 0;
+    height: 99.99%;
+    margin: auto;
+}
+.borderNone {
+    border: none !important;
+}
+.businessIcon {
+    width: 24px;
+}
+.searchInput {
+    border: none !important;
+    border-bottom: 2px solid #999 !important;
+}
+.searchInput:hover {
+    border: none !important;
+    border-bottom: 2px solid #3f51b5 !important;
+}
+.customMargin10 {
+    margin: 0px 10px 10px 0px;
+}
+.customMarginTop5 {
+    margin-top: 5px;
+}
+.listClickable {
+    cursor: pointer;
+}
+.listClickable:hover {
+    text-decoration: none;
+    background-color: rgba(0, 0, 0, 0.04);
+}
+.noBackground {
+    background-color: transparent !important;
+}

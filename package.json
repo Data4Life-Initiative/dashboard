@@ -4,9 +4,6 @@
   "private": true,
   "dependencies": {
     "@ant-design/compatible": "^1.0.2",
-    "@material-ui/core": "^4.9.8",
-    "@material-ui/icons": "^4.9.1",
-    "@material-ui/styles": "^4.9.6",
     "@react-google-maps/api": "^1.8.6",
     "@reduxjs/toolkit": "^1.1.0",
     "@testing-library/jest-dom": "^4.2.4",
@@ -17,7 +14,6 @@
     "connected-react-router": "^6.8.0",
     "google-maps-react": "^2.0.2",
     "lodash.get": "^4.4.2",
-    "material-ui": "^0.20.2",
     "rambda": "^5.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
