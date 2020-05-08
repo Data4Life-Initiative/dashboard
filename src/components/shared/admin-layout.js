@@ -98,8 +98,17 @@ const AdminLayoutComponent = (props, e) => {
           <Row>{props.children}</Row>
         </div>
       </Content>
-      <Footer style={{ textAlign: "center" }}>
-        Ant Design ©2020 Created by Ant UED
+      <Footer className="aligncenter">
+        <div className="footer">
+          <div>
+            <small>
+              Copyright © 2019 LCubed AB, Sweden. All rights reserved.
+            </small>
+          </div>
+          <div>
+            <a>Language</a>
+          </div>
+        </div>
       </Footer>
     </Layout>
   );

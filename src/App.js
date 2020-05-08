@@ -5,11 +5,7 @@ import "./App.css";
 
 import { DashboradWrapperContainer } from "./containers/dashboard_wrapper_container";
 
-import {
-  LoginContainer,
-  AdminLoginContainer,
-  RegistrationContainer,
-} from "./containers";
+import { AdminLoginContainer, RegistrationContainer } from "./containers";
 
 const App = (props, e) => {
   return (

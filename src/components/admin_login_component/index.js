@@ -130,7 +130,8 @@ export class AdminLoginComponent extends React.PureComponent {
             </small>
           </div>
           <div>
-            <a>Language</a>
+            {/* eslint-disable */}
+            <a href="#">Language</a>
           </div>
         </div>
       </div>

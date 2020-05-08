@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
-import { Collapse, Button, Typography, List, Select, Input } from "antd";
+import { Collapse, Button, Typography, List, Select } from "antd";
 import Icon from "@ant-design/icons";
-import { CheckOutlined, CloseCircleOutlined } from "@ant-design/icons";
+import { CheckOutlined } from "@ant-design/icons";
 import { StandaloneSearchBox } from "@react-google-maps/api";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLocations, selectInfectionStatus } from "../map/mapSlice";
@@ -14,7 +14,6 @@ import patientStyles from "./patient.module.css";
 import businessImg from "./building.svg";
 import placeImg from "./new-place.svg";
 import homeImg from "./home.svg";
-import closeImg from "./close.svg";
 import addImg from "./add.svg";
 
 const listItems = [
@@ -22,7 +21,6 @@ const listItems = [
     key: "actions",
   },
 ];
-let selectValue = "";
 const { Panel } = Collapse;
 const { Option } = Select;
 const CollapsePanel = (props) => {
@@ -39,6 +37,7 @@ const locationIcon = {
     <Icon
       component={() => (
         <img
+          alt=""
           src={homeImg}
           className={`${patientStyles.businessIcon} ${patientStyles.customMargin10}`}
         />
@@ -49,6 +48,7 @@ const locationIcon = {
     <Icon
       component={() => (
         <img
+          alt=""
           src={businessImg}
           className={`${patientStyles.businessIcon} ${patientStyles.customMargin10}`}
         />
@@ -59,6 +59,7 @@ const locationIcon = {
     <Icon
       component={() => (
         <img
+          alt=""
           src={placeImg}
           className={`${patientStyles.businessIcon} ${patientStyles.customMargin10}`}
         />
@@ -202,6 +203,7 @@ const MyPanel = () => {
                     <Icon
                       component={() => (
                         <img
+                          alt=""
                           src={addImg}
                           className={`${patientStyles.businessIcon} ${patientStyles.customMargin10}`}
                         />
@@ -233,7 +235,7 @@ const MyPanel = () => {
         variant="contained"
         type="primary"
         className={patientStyles.action}
-        disabled={locations.length && infectionStatus != "" ? undefined : true}
+        disabled={locations.length && infectionStatus !== "" ? undefined : true}
       >
         Submit
       </Button>
