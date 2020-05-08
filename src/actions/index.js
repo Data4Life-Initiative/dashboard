@@ -14,4 +14,5 @@ export {
   getHotspotData,
   addLocationData,
   setCenterData,
+  setInfectionStatusData,
 } from "./dashboard";

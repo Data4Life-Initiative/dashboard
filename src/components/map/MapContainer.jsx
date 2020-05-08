@@ -48,6 +48,7 @@ const MapComponent = (props) => {
       imagePath: `${process.env.PUBLIC_URL}/m`,
       zIndex: 1,
     };
+
     return (
       <Fragment>
         <Select className={styles.mapSelect} defaultValue="1">
@@ -80,13 +81,15 @@ const MapComponent = (props) => {
           ))}
           <MarkerClusterer options={options}>
             {(clusterer) =>
-              data.map((p, i) => (
-                <Marker
-                  key={i}
-                  position={new google.maps.LatLng(p.lat, p.long)}
-                  clusterer={clusterer}
-                />
-              ))
+              data.map((p, i) => {
+                return (
+                  <Marker
+                    key={i}
+                    position={new google.maps.LatLng(p.lat, p.long)}
+                    clusterer={clusterer}
+                  />
+                );
+              })
             }
           </MarkerClusterer>
         </GoogleMap>

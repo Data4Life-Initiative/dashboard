@@ -9,6 +9,7 @@ const initialState = {
   show: false,
   zoom: 14,
   loaded: true,
+  infectionStatus: "",
 };
 const MapReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -32,6 +33,12 @@ const MapReducer = (state = initialState, action) => {
         ...state,
         center: action.payload,
         zoom: 16,
+        loading: false,
+      };
+    case dashboardActionTypes.setInfectionStatus:
+      return {
+        ...state,
+        infectionStatus: action.payload,
         loading: false,
       };
     default:

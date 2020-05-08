@@ -25,3 +25,9 @@ export const setCenterData = (payload) => {
     payload: payload,
   };
 };
+export const setInfectionStatusData = (payload) => {
+  return {
+    type: dashboardActionTypes.setInfectionStatus,
+    payload: payload,
+  };
+};

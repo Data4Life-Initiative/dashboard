@@ -7,4 +7,5 @@ export const dashboardActionTypes = {
   locationAddedSucessfully: "LOCATION_ADDED_SUCESSFULLY",
   setCenter: "SET_CENTER",
   setCenterSucessfully: "SET_CENTER_SUCESSFULLY",
+  setInfectionStatus: "SET_INFECTION_STATUS",
 };
