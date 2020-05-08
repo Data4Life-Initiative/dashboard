@@ -29,7 +29,7 @@ const AdminLayoutComponent = (props, e) => {
       <Header className="custom-layout-header">
         <img
           className="logo"
-          src="https://demo-dashboard.data4life.se/mainlogo.png"
+          src="/logo.png"
           alt=""
         />
         <Text
