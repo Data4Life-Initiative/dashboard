@@ -29,3 +29,11 @@
     align-items: center;
     text-transform: uppercase;
 }
+.customPieHeight {
+    height: 100px;
+}
+@media only screen and (max-width: 767px) {
+    .customPieHeight {
+        height: auto;
+    }
+}

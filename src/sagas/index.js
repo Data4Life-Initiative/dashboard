@@ -4,7 +4,15 @@ import loginSaga from "./login";
 import userSaga from "./user";
 import mapSaga from "./map";
 import dashboardSaga from "./dashboard";
+import patientSaga from "./patient";
 
 export default function* rootSaga(getState) {
-  yield all([newsSaga(), loginSaga(), userSaga(), mapSaga(), dashboardSaga()]);
+  yield all([
+    newsSaga(),
+    loginSaga(),
+    userSaga(),
+    mapSaga(),
+    dashboardSaga(),
+    patientSaga(),
+  ]);
 }

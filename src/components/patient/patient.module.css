@@ -1,71 +1,111 @@
 .container {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  text-align: left;
-  margin-top: 20px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    text-align: left;
+    margin-top: 20px;
 }
 
 .qr {
-  height: 200px;
-  width: 100%;
-  margin-top: 10px;
-  margin-bottom: 25px;
-  border: none;
-  background-color: "transparent";
-  display: flex;
-  align-items: center;
-  position: relative;
+    height: 200px;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    border: none;
+    background-color: "transparent";
+    display: flex;
+    align-items: center;
+    position: relative;
 }
 .action {
-  margin-top: 10px;
+    margin-top: 10px;
 }
 
 .qrImage {
-  position: relative;
-  top: 0;
-  height: 99.99%;
-  margin: auto;
+    position: relative;
+    top: 0;
+    height: 99.99%;
+    margin: auto;
 }
 .borderNone {
-  border: none !important;
+    border: none !important;
 }
 .businessIcon {
-  width: 24px;
+    width: 24px;
 }
 .searchInput {
-  border: none !important;
-  border-bottom: 2px solid #999 !important;
-  width: 97%;
+    border: none !important;
+    border-bottom: 2px solid #999 !important;
+    width: 97%;
 }
 .searchInput:hover {
-  border: none !important;
-  border-bottom: 2px solid #3f51b5 !important;
+    border: none !important;
+    border-bottom: 2px solid #3f51b5 !important;
 }
 .customMargin10 {
-  margin: 0px 10px 10px 0px;
+    margin: 0px 10px 10px 0px;
 }
 .customMarginTop5 {
-  margin-top: 5px;
+    margin-top: 5px;
 }
 .listClickable {
-  cursor: pointer;
+    cursor: pointer;
+    position: relative;
 }
 .listClickable:hover {
-  text-decoration: none;
-  background-color: rgba(0, 0, 0, 0.04);
+    text-decoration: none;
+    background-color: rgba(0, 0, 0, 0.04);
 }
 .noBackground {
-  background-color: transparent !important;
+    background-color: transparent !important;
 }
 .googleSearchInput div {
-  width: 100%;
+    width: 100%;
 }
 .marginRight10px {
-  margin-right: 10px;
+    margin-right: 10px;
 }
 .width100Per {
-  width: 100%;
+    width: 100%;
+}
+.iconCloseCircle:before {
+    content: "x";
+}
+.myTimeStamp {
+    display: inline;
+    margin-left: 15px;
+}
+.gxIconViews {
+    position: static;
+    margin: -10px 0px 10px 30px;
+    top: 5px;
+    right: -15px;
+    float: right;
+    padding-top: 10px;
+}
+.myAddress {
+    width: 100%;
+}
+.closeIcon {
+    font-size: 20px;
+}
+.dateTimestamp {
+    width: 90%;
+    margin-top: 10px !important;
+}
+.tickIcon {
+    display: inline;
+    margin-left: 10px;
+}
+@media only screen and (max-width: 767px) {
+    .tickIcon {
+        margin-left: 3px;
+    }
+}
+.listClickable ul {
+    position: absolute;
+    top: 2px;
+    right: 0px;
 }

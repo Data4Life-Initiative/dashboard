@@ -20,7 +20,7 @@ export function getDashboardStats() {
   //     },
   //   };
   return axiosInstance.get(
-    "https://mydata4life-api.igrant.io/v1/data-entry/dashboard/stats/"
+    apiUrl + "data-entry/dashboard/stats/"
     //config
   );
 }
@@ -30,7 +30,7 @@ export function getDashboardStats() {
  */
 export function getHotspotData() {
   return axiosInstance.get(
-    "https://mydata4life-api.igrant.io/v1/data-entry/disease-hotspots/"
+    apiUrl + "data-entry/disease-hotspots/"
     // config
   );
 }

@@ -64,3 +64,27 @@
 .imgIcon {
     width: 24px;
 }
+.custom-left {
+    font-size: 1.2rem;
+    width: 30%;
+}
+.custom-middle {
+    width: 33%;
+    display: inline-flex;
+}
+.custom-right {
+    width: 30%;
+}
+
+@media only screen and (max-width: 767px) {
+    .custom-left {
+        font-size: 12px;
+        width: 22%;
+    }
+    .custom-middle {
+        display: none;
+    }
+    .custom-right {
+        width: 49%;
+    }
+}

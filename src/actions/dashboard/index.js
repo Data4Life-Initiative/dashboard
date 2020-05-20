@@ -1,33 +1,39 @@
 import { dashboardActionTypes } from "../../actions_types";
 
 export const getDashboardStats = () => {
-  return {
-    type: dashboardActionTypes.getDataBoard,
-  };
+    return {
+        type: dashboardActionTypes.getDataBoard,
+    };
 };
 
 export const getHotspotData = () => {
-  return {
-    type: dashboardActionTypes.getHotspotData,
-  };
+    return {
+        type: dashboardActionTypes.getHotspotData,
+    };
 };
 
 export const addLocationData = (payload) => {
-  return {
-    type: dashboardActionTypes.addLocation,
-    payload: payload,
-  };
+    return {
+        type: dashboardActionTypes.addLocation,
+        payload: payload,
+    };
 };
 
 export const setCenterData = (payload) => {
-  return {
-    type: dashboardActionTypes.setCenter,
-    payload: payload,
-  };
+    return {
+        type: dashboardActionTypes.setCenter,
+        payload: payload,
+    };
 };
 export const setInfectionStatusData = (payload) => {
-  return {
-    type: dashboardActionTypes.setInfectionStatus,
-    payload: payload,
-  };
+    return {
+        type: dashboardActionTypes.setInfectionStatus,
+        payload: payload,
+    };
+};
+export const deleteLocation = (payload) => {
+    return {
+        type: dashboardActionTypes.deleteLocation,
+        payload: payload,
+    };
 };

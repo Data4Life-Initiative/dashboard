@@ -4,6 +4,7 @@ import LoginReducer from "./login";
 import UserProfileReducer from "./user_profile";
 import DashboardReducer from "./dashboard";
 import MapReducer from "./map";
+import PatientReducer from "./patient";
 
 const dataReducers = combineReducers({
   news: NewsReducer,
@@ -11,5 +12,6 @@ const dataReducers = combineReducers({
   user: UserProfileReducer,
   dashboard: DashboardReducer,
   map: MapReducer,
+  patient: PatientReducer,
 });
 export default dataReducers;
