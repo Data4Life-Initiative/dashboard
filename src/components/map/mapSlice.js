@@ -49,7 +49,8 @@ export const selectLocations = (state) =>
 
 export const selectInfectionStatus = (state) =>
   state.data.map ? state.data.map.infectionStatus : [];
-
+export const selectTimeStamp = (state) =>
+  state.data.map && state.data.map.timeStamp ? state.data.map.timeStamp : null;
 const toLatLng = R.map((e) => ({
   lat: parseFloat(e.lat),
   lng: parseFloat(e.long),

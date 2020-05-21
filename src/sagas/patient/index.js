@@ -1,5 +1,5 @@
 import { call, put, takeLatest, all } from "redux-saga/effects";
-import { patientActionTypes } from "../../actions_types";
+import { patientActionTypes, dashboardActionTypes } from "../../actions_types";
 import { Addpatient } from "../../apis";
 import { message } from "antd";
 function* PostAddPatient(action) {
@@ -7,7 +7,10 @@ function* PostAddPatient(action) {
     const responseData = yield call(Addpatient, action.payload);
 
     if (responseData.data.status === 200) {
-      message.success("Patient added successfully");
+      message.success("Patient data submitted successfully");
+      yield put({
+        type: dashboardActionTypes.clearDataPatient,
+      });
     } else message.error(responseData.data.data.msg);
 
     yield put({
