@@ -49,6 +49,24 @@ const MapComponent = (props) => {
       zIndex: 1,
     };
 
+    function onClusteringEnd() {
+      this.clusters.map(function (cluster) {
+        if (cluster.markers.length > 1 && cluster.markers.length <= 5) {
+          cluster.clusterIcon.url = "/green.png";
+        } else if (cluster.markers.length > 5 && cluster.markers.length <= 8) {
+          cluster.clusterIcon.url = "/yellow.png";
+        } else if (cluster.markers.length > 8 && cluster.markers.length <= 10) {
+          cluster.clusterIcon.url = "/warning.png";
+        } else if (
+          cluster.markers.length > 10 &&
+          cluster.markers.length < 100
+        ) {
+          cluster.clusterIcon.url = "/red.png";
+        } else if (cluster.markers.length >= 100) {
+          cluster.clusterIcon.url = "/redlarge.png";
+        }
+      });
+    }
     return (
       <Fragment>
         <Select className={styles.mapSelect} defaultValue="1">
@@ -79,9 +97,9 @@ const MapComponent = (props) => {
               zIndex={5}
             />
           ))}
-          <MarkerClusterer options={options}>
-            {(clusterer) =>
-              data.map((p, i) => {
+          <MarkerClusterer onClusteringEnd={onClusteringEnd} options={options}>
+            {(clusterer) => {
+              return data.map((p, i) => {
                 return (
                   <Marker
                     key={i}
@@ -89,8 +107,8 @@ const MapComponent = (props) => {
                     clusterer={clusterer}
                   />
                 );
-              })
-            }
+              });
+            }}
           </MarkerClusterer>
         </GoogleMap>
       </Fragment>
