@@ -18,11 +18,11 @@ import {
   deleteLocation,
   setTimeStampData,
 } from "../../actions";
-import patientStyles from "./patient.module.css";
-import businessImg from "./building.svg";
-import placeImg from "./new-place.svg";
-import homeImg from "./home.svg";
-import addImg from "./add.svg";
+import issueCertificateStyles from "./issue_certificate.module.css";
+import businessImg from "../patient/building.svg";
+import placeImg from "../patient/new-place.svg";
+import homeImg from "../patient/home.svg";
+import addImg from "../patient/add.svg";
 
 const listItems = [
   {
@@ -47,7 +47,7 @@ const locationIcon = {
         <img
           alt=""
           src={homeImg}
-          className={`${patientStyles.businessIcon} ${patientStyles.customMargin10}`}
+          className={`${issueCertificateStyles.businessIcon} ${issueCertificateStyles.customMargin10}`}
         />
       )}
     />
@@ -58,7 +58,7 @@ const locationIcon = {
         <img
           alt=""
           src={businessImg}
-          className={`${patientStyles.businessIcon} ${patientStyles.customMargin10}`}
+          className={`${issueCertificateStyles.businessIcon} ${issueCertificateStyles.customMargin10}`}
         />
       )}
     />
@@ -69,7 +69,7 @@ const locationIcon = {
         <img
           alt=""
           src={placeImg}
-          className={`${patientStyles.businessIcon} ${patientStyles.customMargin10}`}
+          className={`${issueCertificateStyles.businessIcon} ${issueCertificateStyles.customMargin10}`}
         />
       )}
     />
@@ -85,10 +85,10 @@ const Location = ({ location, id }) => {
   return (
     <div>
       <List.Item
-        className={`${patientStyles.padding5} ${patientStyles.listClickable}`}
+        className={`${issueCertificateStyles.padding5} ${issueCertificateStyles.listClickable}`}
         actions={[
           <CloseCircleOutlined
-            className={patientStyles.closeIcon}
+            className={issueCertificateStyles.closeIcon}
             onClick={() =>
               dispatch(
                 deleteLocation({
@@ -101,12 +101,12 @@ const Location = ({ location, id }) => {
         ]}
       >
         <div
-          className={patientStyles.myAddress}
+          className={issueCertificateStyles.myAddress}
           onClick={() => dispatch(setCenterData(location.latLng))}
         >
           <Icon component={() => <div>{locationIcon[location.type]}</div>} />
           <span>{location.address}</span>
-          <div className={patientStyles.myTimeStamp}>
+          <div className={issueCertificateStyles.myTimeStamp}>
             {getDateFromTimestamp}
           </div>
         </div>
@@ -194,7 +194,7 @@ const MyPanel = () => {
   const { Title } = Typography;
 
   return (
-    <div className={patientStyles.container}>
+    <div className={issueCertificateStyles.container}>
       <Title
         style={{
           fontWeight: "bold",
@@ -202,20 +202,20 @@ const MyPanel = () => {
           textAlign: "center",
         }}
       >
-        ADD NEW PATIENTS
+        ISSUE NEW CERTIFICATE
       </Title>
-      <div className={patientStyles.qr}>
+      <div className={issueCertificateStyles.qr}>
         <img
           src="/qr_image.png"
           alt="QR Code"
-          className={patientStyles.qrImage}
+          className={issueCertificateStyles.qrImage}
         ></img>
       </div>
       <CollapsePanel title="Infection status">
         <Select
           value={infectionStatus}
           onChange={(value) => dispatch(setInfectionStatusData(value))}
-          className={patientStyles.width100Per}
+          className={issueCertificateStyles.width100Per}
         >
           <Option value="">Select</Option>
           <Option value="infected_with_symptom">With Symptoms </Option>
@@ -229,10 +229,10 @@ const MyPanel = () => {
             dataSource={listItems}
             renderItem={(item) =>
               adding ? (
-                <div className={patientStyles.marginBottom20}>
+                <div className={issueCertificateStyles.marginBottom20}>
                   <List.Item
                     key="search"
-                    className={patientStyles.googleSearchInput}
+                    className={issueCertificateStyles.googleSearchInput}
                   >
                     <StandaloneSearchBox
                       onLoad={(ref) => (search.current = ref)}
@@ -241,14 +241,14 @@ const MyPanel = () => {
                       }
                     >
                       <input
-                        className={patientStyles.searchInput}
+                        className={issueCertificateStyles.searchInput}
                         onKeyPress={(e) => handleKeyPress(e)}
                       />
                     </StandaloneSearchBox>
                   </List.Item>
 
                   <DatePicker
-                    className={patientStyles.dateTimestamp}
+                    className={issueCertificateStyles.dateTimestamp}
                     format="YYYY-MM-DD HH:mm:ss"
                     disabledDate={disabledDate}
                     disabledTime={disabledDateTime}
@@ -264,7 +264,7 @@ const MyPanel = () => {
                     width="1em"
                     height="1em"
                     onClick={() => addPlace("place")}
-                    className={patientStyles.tickIcon}
+                    className={issueCertificateStyles.tickIcon}
                   />
                 </div>
               ) : (
@@ -278,7 +278,7 @@ const MyPanel = () => {
                         <img
                           alt=""
                           src={addImg}
-                          className={`${patientStyles.businessIcon} ${patientStyles.customMargin10}`}
+                          className={`${issueCertificateStyles.businessIcon} ${issueCertificateStyles.customMargin10}`}
                         />
                       )}
                     />
@@ -297,7 +297,7 @@ const MyPanel = () => {
       <Button
         variant="contained"
         type="primary"
-        className={patientStyles.action}
+        className={issueCertificateStyles.action}
         disabled={locations.length && infectionStatus !== "" ? undefined : true}
         onClick={addPatient}
       >

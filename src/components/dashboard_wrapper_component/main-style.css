@@ -6,3 +6,11 @@
         width: 80% !important;
     }
 }
+
+.issue-certificate-button{
+    margin-left: 10px;
+}
+
+.dashboard-buttons {
+    margin-bottom: 10px;
+}
