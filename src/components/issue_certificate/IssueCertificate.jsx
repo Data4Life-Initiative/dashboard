@@ -1,310 +1,210 @@
-import React, { useRef, useState } from "react";
-import moment from "moment";
-import { Collapse, Button, Typography, List, Select, DatePicker } from "antd";
-import Icon from "@ant-design/icons";
-import { CheckOutlined, CloseCircleOutlined } from "@ant-design/icons";
-import { StandaloneSearchBox } from "@react-google-maps/api";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { connect } from "react-redux";
 import {
-  selectLocations,
-  selectInfectionStatus,
-  selectTimeStamp,
-} from "../map/mapSlice";
-import {
-  addLocationData,
-  setCenterData,
-  setInfectionStatusData,
-  addPatientStart,
-  deleteLocation,
-  setTimeStampData,
+  getPatientConnections, getSchemaFromAries, getSchemaDetailFromAries,
+  sendOffer
 } from "../../actions";
-import issueCertificateStyles from "./issue_certificate.module.css";
-import businessImg from "../patient/building.svg";
-import placeImg from "../patient/new-place.svg";
-import homeImg from "../patient/home.svg";
-import addImg from "../patient/add.svg";
-
-const listItems = [
-  {
-    key: "actions",
-  },
-];
+import {Button, Collapse, Row, Col, Select, Typography, Form, Input, message} from "antd";
+import certificateStyles from "./issue_certificate.module.css";
+import {values} from "rambda";
 const { Panel } = Collapse;
 const Option = Select.Option;
-const CollapsePanel = (props) => {
-  return (
-    <Collapse>
-      <Panel key={props.title} header={props.title}>
-        <div>{props.children}</div>
-      </Panel>
-    </Collapse>
-  );
-};
-const locationIcon = {
-  home: (
-    <Icon
-      component={() => (
-        <img
-          alt=""
-          src={homeImg}
-          className={`${issueCertificateStyles.businessIcon} ${issueCertificateStyles.customMargin10}`}
-        />
-      )}
-    />
-  ),
-  work: (
-    <Icon
-      component={() => (
-        <img
-          alt=""
-          src={businessImg}
-          className={`${issueCertificateStyles.businessIcon} ${issueCertificateStyles.customMargin10}`}
-        />
-      )}
-    />
-  ),
-  place: (
-    <Icon
-      component={() => (
-        <img
-          alt=""
-          src={placeImg}
-          className={`${issueCertificateStyles.businessIcon} ${issueCertificateStyles.customMargin10}`}
-        />
-      )}
-    />
-  ),
+const { Title } = Typography;
+
+const layout = {
+  labelCol: { span: 8 },
+  wrapperCol: { span: 16 },
 };
 
-const Location = ({ location, id }) => {
-  const dispatch = useDispatch();
-  const getDateFromTimestamp = moment(location.timestamp).format(
-    "YYYY-MM-DD hh:mm:ss A"
-  );
-
-  return (
-    <div>
-      <List.Item
-        className={`${issueCertificateStyles.padding5} ${issueCertificateStyles.listClickable}`}
-        actions={[
-          <CloseCircleOutlined
-            className={issueCertificateStyles.closeIcon}
-            onClick={() =>
-              dispatch(
-                deleteLocation({
-                  address: location.address,
-                  timestamp: location.timestamp,
-                })
-              )
-            }
-          />,
-        ]}
-      >
-        <div
-          className={issueCertificateStyles.myAddress}
-          onClick={() => dispatch(setCenterData(location.latLng))}
-        >
-          <Icon component={() => <div>{locationIcon[location.type]}</div>} />
-          <span>{location.address}</span>
-          <div className={issueCertificateStyles.myTimeStamp}>
-            {getDateFromTimestamp}
-          </div>
-        </div>
-      </List.Item>
-    </div>
-  );
-};
-
-const MyPanel = () => {
-  const dispatch = useDispatch();
-
-  const [adding, setAdding] = useState(null);
-  const [place, setPlace] = useState(null);
-
-  const cancel = () => {
-    setAdding(null);
-    setPlace(null);
+class IssueCertificate extends React.Component {
+  state = {
+    selectedPatient: null,
+    selectedSchema: null
   };
 
-  const range = (start, end) => {
-    const result = [];
-    for (let i = start; i < end; i++) {
-      result.push(i);
+  componentDidMount() {
+    this.props.getPatientConnections();
+    this.props.getSchemaFromAries();
+  }
+
+  schemaSelectorHandler = (value) => {
+    this.setState({selectedSchema: value} );
+    this.props.getSchemaDetailFromAries(value)
+  };
+
+  processCertificate = (values) => {
+    this.props.sendOffer({
+      attributes: values,
+      type: this.state.selectedSchema,
+      connection_id: this.state.selectedPatient
+    });
+    console.log(values);
+  };
+
+  getCertificateStatus = () => {
+    const {aries} = this.props;
+    if(aries.send_offer_response && aries.send_offer_response.thread_id){
+      // Check for thread id status
     }
-    return result;
-  };
-  const disabledDate = (current) => {
-    // Can not select days before today and today
-    return current && current > moment().endOf("day");
-  };
+  }
 
-  const disabledDateTime = () => {
-    return {
-      disabledHours: () => range(0, 24).splice(4, 20),
-      disabledMinutes: () => range(30, 60),
-      disabledSeconds: () => [55, 56],
-    };
-  };
+  intervalInstance;
+  showStatus = false;
 
-  const handleKeyPress = (e) => {
-    let key = e.which || e.charCode;
-    if (key === 13) {
-      // addPlace("place");
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    if( (this.props.aries.send_offer_success !== nextProps.aries.send_offer_success) && nextProps.aries.sending_offer === false){
+      if(nextProps.aries.send_offer_success){
+        message.success('Submitted request for certificate');
+        this.cancelIntervalInstance();
+        // Start checking for status
+        this.intervalInstance = setTimeout(() => this.getCertificateStatus, 5000);
+        this.showStatus = true;
+      }
+      else{
+        message.error('Error while submitting request')
+      }
+    }
+    return true;
+  }
+
+  cancelIntervalInstance = () => {
+    if(this.intervalInstance){
+      clearInterval(this.intervalInstance);
+      this.intervalInstance = null;
     }
   };
-
-  const addPlace = (type) => {
-    if (!timeStampSelect) return;
-    if (place) {
-      const loc = place[0].geometry.location;
-      const latLng = { lat: loc.lat(), lng: loc.lng() };
-      const timestamp = timeStampSelect.utc().valueOf();
-      const newLocation = {
-        type,
-        address: place[0].name,
-        latLng,
-        timestamp,
-      };
-      dispatch(addLocationData(newLocation));
-      cancel();
+  getCertificateIssueStatus = () => {
+    const {aries} = this.props;
+    if(aries.send_offer_response && aries.send_offer_response.thread_id){
+      return 'Unknown';
     }
-  };
+  }
 
-  const addPatient = () => {
-    dispatch(
-      addPatientStart({
-        coords: locations.map((o) => {
-          return {
-            lat: o.latLng.lat,
-            long: o.latLng.lng,
-            timestamp: o.timestamp, // Math.floor(new Date().getTime() / 1000),
-          };
-        }),
-        infection_status: infectionStatus,
-      })
-    );
-  };
+  componentWillUnmount() {
+    this.cancelIntervalInstance();
+  }
 
-  const search = useRef(null);
-
-  const locations = useSelector(selectLocations);
-  const infectionStatus = useSelector(selectInfectionStatus);
-  const timeStampSelect = useSelector(selectTimeStamp);
-
-  const { Title } = Typography;
-
-  return (
-    <div className={issueCertificateStyles.container}>
+  render() {
+    const {selectedPatient, selectedSchema} = this.state;
+    const {patient, aries} = this.props;
+    console.log(patient, aries);
+    return (<div className={certificateStyles.container}>
       <Title
         style={{
           fontWeight: "bold",
           fontSize: "18px",
           textAlign: "center",
+          marginBottom: "30px"
         }}
       >
-        ISSUE NEW CERTIFICATE
+        ISSUE Certificates
       </Title>
-      <div className={issueCertificateStyles.qr}>
-        <img
-          src="/qr_image.png"
-          alt="QR Code"
-          className={issueCertificateStyles.qrImage}
-        ></img>
-      </div>
-      <CollapsePanel title="Infection status">
-        <Select
-          value={infectionStatus}
-          onChange={(value) => dispatch(setInfectionStatusData(value))}
-          className={issueCertificateStyles.width100Per}
-        >
-          <Option value="">Select</Option>
-          <Option value="infected_with_symptom">With Symptoms </Option>
-          <Option value="infected_without_symptom">Without Symptoms </Option>
-          <Option value="infected_status_unknown">Status Unknown</Option>
-        </Select>
-      </CollapsePanel>
-      <CollapsePanel title="Locations">
-        {
-          <List
-            dataSource={listItems}
-            renderItem={(item) =>
-              adding ? (
-                <div className={issueCertificateStyles.marginBottom20}>
-                  <List.Item
-                    key="search"
-                    className={issueCertificateStyles.googleSearchInput}
-                  >
-                    <StandaloneSearchBox
-                      onLoad={(ref) => (search.current = ref)}
-                      onPlacesChanged={() =>
-                        setPlace(search.current.getPlaces())
-                      }
-                    >
-                      <input
-                        className={issueCertificateStyles.searchInput}
-                        onKeyPress={(e) => handleKeyPress(e)}
-                      />
-                    </StandaloneSearchBox>
-                  </List.Item>
-
-                  <DatePicker
-                    className={issueCertificateStyles.dateTimestamp}
-                    format="YYYY-MM-DD HH:mm:ss"
-                    disabledDate={disabledDate}
-                    disabledTime={disabledDateTime}
-                    onChange={(value, dateString) =>
-                      dispatch(setTimeStampData(value))
-                    }
-                    name="txtTimeStamp"
-                    showTime={{
-                      defaultValue: moment("00:00:00", "HH:mm:ss"),
-                    }}
-                  />
-                  <CheckOutlined
-                    width="1em"
-                    height="1em"
-                    onClick={() => addPlace("place")}
-                    className={issueCertificateStyles.tickIcon}
-                  />
-                </div>
-              ) : (
-                <List.Item
-                  onClick={() => setAdding({ query: "", type: "place" })}
-                  key="add"
-                >
-                  <div>
-                    <Icon
-                      component={() => (
-                        <img
-                          alt=""
-                          src={addImg}
-                          className={`${issueCertificateStyles.businessIcon} ${issueCertificateStyles.customMargin10}`}
-                        />
-                      )}
-                    />
-                    Add location
-                  </div>
-                </List.Item>
-              )
-            }
+      <Row style={{marginBottom: '30px'}}>
+        <Col span={8}>
+          Patient
+        </Col>
+        <Col span={16}>
+          <Select
+            value={selectedPatient}
+            onChange={(value) => this.setState({selectedPatient: value} )}
+            className={certificateStyles.width100Per}
           >
-            {locations &&
-              locations.map((l, i) => <Location location={l} key={i} />)}
-          </List>
-        }
-      </CollapsePanel>
+            {
+              (patient.connections || []).map(connection =>  <Option value={connection.connection_id} >{connection.connection_id}</Option>)
+            }
+          </Select>
+        </Col>
+      </Row>
 
-      <Button
-        variant="contained"
-        type="primary"
-        className={issueCertificateStyles.action}
-        disabled={locations.length && infectionStatus !== "" ? undefined : true}
-        onClick={addPatient}
-      >
-        Submit
-      </Button>
-    </div>
-  );
+      <Row>
+        <Col span={8}>
+          Certificate Schema
+        </Col>
+        <Col span={16}>
+          <Select
+            value={selectedSchema}
+            onChange={this.schemaSelectorHandler}
+            className={certificateStyles.width100Per}
+          >
+            {
+              (aries.schema || []).map(schema =>  <Option value={schema} >{schema}</Option>)
+            }
+          </Select>
+        </Col>
+      </Row>
+
+      <Row style={{marginTop: '30px'}}>
+
+        <Col span={24}>
+          {
+            aries.loading_schema_detail === false && aries.schema_detail.attrNames &&
+            <Form className={certificateStyles.form} name="dynamic_form_item" {...layout} onFinish={this.processCertificate}>
+              <h3>{aries.schema_detail.name}</h3>
+              {
+                aries.schema_detail.attrNames.map(field => <Form.Item
+                  label={field}
+                  name={field}
+                  key={field}
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input this field",
+                    },
+                  ]}
+                >
+                  <Input placeholder="" style={{ width: '100%' }} />
+                </Form.Item> )
+              }
+              <Form.Item>
+                <Button
+                  type="primary"
+                  className={certificateStyles.action}
+                  //disabled={locations.length && infectionStatus !== "" ? undefined : true}
+                  htmlType="submit"
+                  disabled={
+                    !this.state.selectedPatient || aries.loading_schema || aries.loading_schema_detail || aries.sending_offer
+                  }
+                  loading={aries.sending_offer}
+                >
+                  Submit
+                </Button>
+              </Form.Item>
+            </Form>
+          }
+        </Col>
+      </Row>
+      {
+        this.showStatus &&
+        <Row>
+          <Col span={12}>
+            Certificate Issue Status:
+          </Col>
+          <Col span={12}>
+            {this.getCertificateIssueStatus()}
+          </Col>
+        </Row>
+      }
+    </div>);
+  }
+}
+
+const mapDispatchToProps = {
+  getPatientConnections,
+  getSchemaFromAries,
+  getSchemaDetailFromAries,
+  sendOffer
 };
 
-export default MyPanel;
+const mapStateToProps = (state) => {
+  return {
+    patient: state.data.patient,
+    aries: state.data.aries,
+  };
+};
+
+export const IssueCertificateContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(IssueCertificate);
+
+export default IssueCertificateContainer;

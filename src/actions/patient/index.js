@@ -17,3 +17,16 @@ export const addPatientFail = () => {
         type: patientActionTypes.addPatientFailure,
     };
 };
+
+export const getPatientConnections = () => {
+    return {
+        type: patientActionTypes.getPatientConnections
+    }
+};
+
+export const savePatientConnections = (payload) => {
+    return {
+        type: patientActionTypes.addPatientStart,
+        payload: payload,
+    };
+};

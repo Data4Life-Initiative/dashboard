@@ -5,6 +5,7 @@ import UserProfileReducer from "./user_profile";
 import DashboardReducer from "./dashboard";
 import MapReducer from "./map";
 import PatientReducer from "./patient";
+import AriesReducer from "./aries";
 
 const dataReducers = combineReducers({
   news: NewsReducer,
@@ -13,5 +14,6 @@ const dataReducers = combineReducers({
   dashboard: DashboardReducer,
   map: MapReducer,
   patient: PatientReducer,
+  aries: AriesReducer
 });
 export default dataReducers;

@@ -122,3 +122,10 @@
 .padding5 {
   padding: 5px 0 !important;
 }
+
+
+.form {
+  padding: 10px !important;
+  border: #999999 solid 1px;
+  border-radius: 3px;
+}
