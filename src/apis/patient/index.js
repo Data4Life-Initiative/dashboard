@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { apiUrl } from "../../constants";
+import { apiUrl, ariesURL } from "../../constants";
 import { responseErrorInterceptor, requestInterceptor } from "../interceptors";
 
 const axiosInstance = axios.create({
@@ -9,10 +9,20 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.response.use(undefined, responseErrorInterceptor);
 axiosInstance.interceptors.request.use(requestInterceptor);
 
+const ariesAxiosInstance = axios.create({
+  baseURL: ariesURL
+});
+ariesAxiosInstance.interceptors.response.use(undefined, responseErrorInterceptor);
+ariesAxiosInstance.interceptors.request.use(requestInterceptor);
+
 /**
  *  Add patient
  * @return {Promise} Promise with details
  */
 export function Addpatient(payload) {
   return axiosInstance.post("data-entry/patient/", payload);
+}
+
+export function getPatientsFromAries(payload) {
+  return ariesAxiosInstance.get("connections?state=active", payload);
 }

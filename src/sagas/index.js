@@ -5,6 +5,7 @@ import userSaga from "./user";
 import mapSaga from "./map";
 import dashboardSaga from "./dashboard";
 import patientSaga from "./patient";
+import ariesSaga from "./aries";
 
 export default function* rootSaga(getState) {
   yield all([
@@ -14,5 +15,6 @@ export default function* rootSaga(getState) {
     mapSaga(),
     dashboardSaga(),
     patientSaga(),
+    ariesSaga(),
   ]);
 }

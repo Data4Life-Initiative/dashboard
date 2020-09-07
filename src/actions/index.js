@@ -22,4 +22,12 @@ export {
   addPatientFail,
   addPatientStart,
   addPatientSuccessfuly,
+  getPatientConnections,
+  savePatientConnections
 } from "./patient";
+
+export {
+  getSchemaFromAries,
+  getSchemaDetailFromAries,
+  sendOffer
+} from './aries'
