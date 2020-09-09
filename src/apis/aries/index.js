@@ -24,8 +24,8 @@ export function sendOffer(payload) {
   console.log(payload);
   const _payload = {
     "trace": false,
-    "auto_remove": true,
-    "auto_issue": true,
+    "auto_remove": false,
+    "auto_issue": false,
     "connection_id": payload.connection_id,
     "comment": "",
     "credential_preview": {
