@@ -48,11 +48,11 @@ export default class DashboradWrapperComponent extends React.Component {
                     title="Issue Certificate"
                     className="custom-drawer"
                     onClose={this.onClose}
-                    visible={true || this.state.showIssueCertificateVisible}
+                    visible={this.state.showIssueCertificateVisible}
                     bodyStyle={{ paddingBottom: 80 }}
                     destroyOnClose={true}
                 >
-                    <IssueCertificate />
+                    <IssueCertificate onCancel={this.onClose} />
                 </Drawer>
 
                 <Button type="primary dashboard-buttons" onClick={this.showAddPatientDrawer}>

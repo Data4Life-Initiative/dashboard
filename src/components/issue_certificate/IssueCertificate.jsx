@@ -14,6 +14,10 @@ const layout = {
   wrapperCol: { span: 16 },
 };
 
+const tailLayout = {
+  wrapperCol: { offset: 8, span: 16 },
+};
+
 class IssueCertificate extends React.Component {
   state = {
     selectedPatient: null,
@@ -88,6 +92,7 @@ class IssueCertificate extends React.Component {
   render() {
     const {selectedPatient, selectedSchema} = this.state;
     const {patient, aries} = this.props;
+
     console.log(patient, aries);
     return (<div className={certificateStyles.container}>
       <Title
@@ -138,7 +143,7 @@ class IssueCertificate extends React.Component {
 
         <Col span={24}>
           {
-            aries.loading_schema_detail === false && aries.schema_detail.attrNames &&
+            aries.loading_schema_detail === false && aries.schema_detail.attrNames && selectedSchema &&
             <Form className={certificateStyles.form} name="dynamic_form_item" {...layout} onFinish={this.processCertificate}>
               <h3>{aries.schema_detail.name}</h3>
               {
@@ -156,10 +161,16 @@ class IssueCertificate extends React.Component {
                   <Input placeholder="" style={{ width: '100%' }} />
                 </Form.Item> )
               }
-              <Form.Item>
+              <Form.Item {...tailLayout} style={{flex: 'unset'}}>
+                <Button htmlType="button" type="danger" onClick={() => {
+                  this.setState({selectedSchema: null, selectedPatient: null})
+                }} style={{marginRight: '20px'}}>
+                  Cancel
+                </Button>
+
                 <Button
                   type="primary"
-                  className={certificateStyles.action}
+                  //className={certificateStyles.action}
                   //disabled={locations.length && infectionStatus !== "" ? undefined : true}
                   htmlType="submit"
                   disabled={
@@ -175,7 +186,7 @@ class IssueCertificate extends React.Component {
         </Col>
       </Row>
       {
-        this.showStatus &&
+        this.showStatus && selectedSchema &&
         <Row style={{marginTop: '20px', fontSize: '1.2em'}}>
           <Col span={12}>
             Certificate Issue Status:
