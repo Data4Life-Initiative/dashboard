@@ -34,7 +34,7 @@ export function sendOffer(payload) {
         return {name: key, value: payload.attributes[key]}
       })
     },
-    "cred_def_id": isProduction ? 'QfYUgB4GrLPE5U16PzbSH2:3:CL:251:default' : "NMja9YxbTJWXExhY2Vbv3D:3:CL:267:default"
+    "cred_def_id": isProduction ? 'QfYUgB4GrLPE5U16PzbSH2:3:CL:251:default' : "AGmo1HxEdSrSeD3whBDdnV:3:CL:271:default"
   };
   return ariesAxiosInstance.post("/issue-credential/send-offer", _payload);
 }
