@@ -29,5 +29,6 @@ export {
 export {
   getSchemaFromAries,
   getSchemaDetailFromAries,
-  sendOffer
+  sendOffer,
+  getCertificateRequestStatus
 } from './aries'

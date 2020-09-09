@@ -1,6 +1,6 @@
 import { call, put, takeLatest, all } from "redux-saga/effects";
 import { ariesActionTypes } from "../../actions_types";
-import { getSchemaFromAries ,getSchemaDetailFromAries, sendOffer} from "../../apis";
+import { getSchemaFromAries ,getSchemaDetailFromAries, sendOffer, getCertificateRequestStatus} from "../../apis";
 
 function* GetSchemaFromAries(action) {
   try {
@@ -65,6 +65,29 @@ export function* sendOfferAction() {
   yield takeLatest(ariesActionTypes.sendOffer, SendOffer);
 }
 
+
+function* GetCertificateRequestStatus(action) {
+  try {
+    const responseData = yield call(getCertificateRequestStatus, action.payload);
+
+    yield put({
+      type: ariesActionTypes.getCertificateRequestStatusSuccess,
+      value: responseData.data.results || [{ error: responseData.data }],
+    });
+  } catch (ex) {
+    yield put({
+      type: ariesActionTypes.getCertificateRequestStatusFailure,
+      value: ex.response,
+    });
+    console.log(ex.response);
+  }
+}
+
+export function* getCertificateRequestStatusAction() {
+  yield takeLatest(ariesActionTypes.getCertificateRequestStatus, GetCertificateRequestStatus);
+}
+
 export default function* ariesSaga() {
-  yield all([getSchemaFromAriesAction(), getSchemaDetailFromAriesAction(), sendOfferAction()]);
+  yield all([getSchemaFromAriesAction(), getSchemaDetailFromAriesAction(), sendOfferAction(),
+    getCertificateRequestStatusAction()]);
 }

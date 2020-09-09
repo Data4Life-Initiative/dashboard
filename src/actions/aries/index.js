@@ -60,3 +60,23 @@ export const sendOfferSuccess = (payload) => {
         payload: payload,
     };
 };
+
+export const getCertificateRequestStatus = (payload) => {
+    return {
+        type: ariesActionTypes.getCertificateRequestStatus,
+        payload: payload,
+    };
+};
+export const getCertificateRequestStatusFailure = (payload) => {
+    return {
+        type: ariesActionTypes.getCertificateRequestStatusFailure,
+        payload: payload,
+    };
+};
+
+export const getCertificateRequestStatusSuccess = (payload) => {
+    return {
+        type: ariesActionTypes.getCertificateRequestStatusSuccess,
+        payload: payload,
+    };
+};

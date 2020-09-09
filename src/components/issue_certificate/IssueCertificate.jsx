@@ -2,12 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import {
   getPatientConnections, getSchemaFromAries, getSchemaDetailFromAries,
-  sendOffer
+  sendOffer, getCertificateRequestStatus
 } from "../../actions";
 import {Button, Collapse, Row, Col, Select, Typography, Form, Input, message} from "antd";
 import certificateStyles from "./issue_certificate.module.css";
-import {values} from "rambda";
-const { Panel } = Collapse;
 const Option = Select.Option;
 const { Title } = Typography;
 
@@ -43,8 +41,10 @@ class IssueCertificate extends React.Component {
 
   getCertificateStatus = () => {
     const {aries} = this.props;
+    console.log("Here", aries.send_offer_response);
     if(aries.send_offer_response && aries.send_offer_response.thread_id){
       // Check for thread id status
+      this.props.getCertificateRequestStatus(aries.send_offer_response.thread_id);
     }
   }
 
@@ -57,7 +57,8 @@ class IssueCertificate extends React.Component {
         message.success('Submitted request for certificate');
         this.cancelIntervalInstance();
         // Start checking for status
-        this.intervalInstance = setTimeout(() => this.getCertificateStatus, 5000);
+        this.intervalInstance = setInterval(() => this.getCertificateStatus(), 5000);
+        this.getCertificateStatus();
         this.showStatus = true;
       }
       else{
@@ -76,7 +77,7 @@ class IssueCertificate extends React.Component {
   getCertificateIssueStatus = () => {
     const {aries} = this.props;
     if(aries.send_offer_response && aries.send_offer_response.thread_id){
-      return 'Unknown';
+      this.props.getCertificateRequestStatus(aries.send_offer_response.thread_id);
     }
   }
 
@@ -175,12 +176,13 @@ class IssueCertificate extends React.Component {
       </Row>
       {
         this.showStatus &&
-        <Row>
+        <Row style={{marginTop: '20px', fontSize: '1.2em'}}>
           <Col span={12}>
             Certificate Issue Status:
           </Col>
           <Col span={12}>
-            {this.getCertificateIssueStatus()}
+            {aries.certificate_request_status && aries.certificate_request_status.length > 0 ?
+                (aries.certificate_request_status[0].state || 'Unknown').replace('_', ' ') : 'Unknown'}
           </Col>
         </Row>
       }
@@ -192,7 +194,8 @@ const mapDispatchToProps = {
   getPatientConnections,
   getSchemaFromAries,
   getSchemaDetailFromAries,
-  sendOffer
+  sendOffer,
+  getCertificateRequestStatus
 };
 
 const mapStateToProps = (state) => {
