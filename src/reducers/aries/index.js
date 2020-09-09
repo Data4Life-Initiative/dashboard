@@ -1,7 +1,7 @@
 import { ariesActionTypes } from "../../actions_types";
 const initialState = {
     loading_schema: false, schema: [], loading_schema_detail: false, schema_detail: {},
-    send_offer_response: {}, sending_offer: false, send_offer_success: false
+    send_offer_response: {}, sending_offer: false, send_offer_success: false, certificate_request_status: {}
 };
 const AriesReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -23,6 +23,11 @@ const AriesReducer = (state = initialState, action) => {
             return { ...state, send_offer_response: action.value, sending_offer: false, send_offer_success: true };
         case ariesActionTypes.sendOfferFailure:
             return { ...state, send_offer_response: {}, sending_offer: false, send_offer_success: false };
+        case ariesActionTypes.getCertificateRequestStatus:
+            return { ...state };
+        case ariesActionTypes.getCertificateRequestStatusSuccess:
+            return { ...state, certificate_request_status: action.value };
+
         default:
             return state;
     }

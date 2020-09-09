@@ -38,3 +38,9 @@ export function sendOffer(payload) {
   };
   return ariesAxiosInstance.post("/issue-credential/send-offer", _payload);
 }
+
+export function getCertificateRequestStatus(payload) {
+
+  const URL = "/issue-credential/records?thread_id=" + payload;
+  return ariesAxiosInstance.get(URL);
+}

@@ -9,4 +9,8 @@ export const ariesActionTypes = {
     sendOffer: 'SEND_OFFER',
     sendOfferSuccess: 'SEND_OFFER_SUCCESS',
     sendOfferFailure: 'SEND_OFFER_FAILURE',
+
+    getCertificateRequestStatus: 'GET_CERTIFICATE_REQUEST_STATUS',
+    getCertificateRequestStatusSuccess: 'GET_CERTIFICATE_REQUEST_STATUS_SUCCESS',
+    getCertificateRequestStatusFailure: 'GET_CERTIFICATE_REQUEST_STATUS_FAILURE'
 };
