@@ -103,7 +103,7 @@ class IssueCertificate extends React.Component {
           marginBottom: "30px"
         }}
       >
-        ISSUE Certificates
+        Issue Certificate
       </Title>
       <Row style={{marginBottom: '30px'}}>
         <Col span={8}>
@@ -116,7 +116,8 @@ class IssueCertificate extends React.Component {
             className={certificateStyles.width100Per}
           >
             {
-              (patient.connections || []).map(connection =>  <Option value={connection.connection_id} >{connection.connection_id}</Option>)
+              (patient.connections || []).map(connection =>  <Option value={connection.ConnectionID || connection.connection_id} >
+                {connection.Name || connection.connection_id}</Option>)
             }
           </Select>
         </Col>
@@ -133,7 +134,7 @@ class IssueCertificate extends React.Component {
             className={certificateStyles.width100Per}
           >
             {
-              (aries.schema || []).map(schema =>  <Option value={schema} >{schema}</Option>)
+              (aries.schema || []).map(schema =>  <Option value={schema} >{schema.split(':')[2]}</Option>)
             }
           </Select>
         </Col>

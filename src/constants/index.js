@@ -1,1 +1,1 @@
-export { apiUrl, ariesURL, isProduction } from "./url_constant";
+export { apiUrl, ariesURL, isProduction, connectionsEndpoint } from "./url_constant";
