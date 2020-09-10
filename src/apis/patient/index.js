@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { apiUrl, ariesURL, connectionsEndpoint } from "../../constants";
+import { apiUrl, ariesURL, connectionsEndpoint, isProduction } from "../../constants";
 import { responseErrorInterceptor, requestInterceptor } from "../interceptors";
 
 const axiosInstance = axios.create({
@@ -15,8 +15,12 @@ const ariesAxiosInstance = axios.create({
 ariesAxiosInstance.interceptors.response.use(undefined, responseErrorInterceptor);
 ariesAxiosInstance.interceptors.request.use(requestInterceptor);
 
+
 const connectionEndpointInstance = axios.create({
-  baseURL: connectionsEndpoint
+  baseURL: connectionsEndpoint,
+  headers: {
+    'Authorization': isProduction ? 'ApiKey eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI1YzE4YWRiMDU0MzA0NjAwMDFhZjYyNTAiLCJleHAiOjE2MzA2OTM2MzJ9.6ot0dRulSs4k6F0zreJK8i6g_j1Q_6k7YIsCp8D7SLM' : '',
+  },
 });
 connectionEndpointInstance.interceptors.response.use(undefined, responseErrorInterceptor);
 connectionEndpointInstance.interceptors.request.use(requestInterceptor);
