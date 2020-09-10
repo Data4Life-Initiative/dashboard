@@ -38,7 +38,7 @@ function* GetPatientConnections(action) {
 
     yield put({
       type: patientActionTypes.savePatientConnections,
-      value: responseData.data.results || [{ error: responseData.data.data }],
+      value: responseData.data.results || responseData.data || [{ error: responseData.data.data }],
     });
   } catch (ex) {
     message.error(ex.response.data.data.msg);
