@@ -103,7 +103,6 @@ class IssueCertificate extends React.Component {
           marginBottom: "30px"
         }}
       >
-        ISSUE Certificates
       </Title>
       <Row style={{marginBottom: '30px'}}>
         <Col span={8}>
@@ -116,7 +115,8 @@ class IssueCertificate extends React.Component {
             className={certificateStyles.width100Per}
           >
             {
-              (patient.connections || []).map(connection =>  <Option value={connection.connection_id} >{connection.connection_id}</Option>)
+              (patient.connections || []).map(connection =>  <Option value={connection.ConnectionID || connection.connection_id} >
+                {connection.Name || connection.connection_id}</Option>)
             }
           </Select>
         </Col>
@@ -133,7 +133,7 @@ class IssueCertificate extends React.Component {
             className={certificateStyles.width100Per}
           >
             {
-              (aries.schema || []).map(schema =>  <Option value={schema} >{schema}</Option>)
+              (aries.schema || []).map(schema =>  <Option value={schema} >{schema.split(':')[2]}</Option>)
             }
           </Select>
         </Col>
@@ -145,7 +145,7 @@ class IssueCertificate extends React.Component {
           {
             aries.loading_schema_detail === false && aries.schema_detail.attrNames && selectedSchema &&
             <Form className={certificateStyles.form} name="dynamic_form_item" {...layout} onFinish={this.processCertificate}>
-              <h3>{aries.schema_detail.name}</h3>
+              <h3 style={{textAlign: 'center', marginBottom: '20px'}}>{aries.schema_detail.name}</h3>
               {
                 aries.schema_detail.attrNames.map(field => <Form.Item
                   label={field}
@@ -164,7 +164,11 @@ class IssueCertificate extends React.Component {
               <Form.Item {...tailLayout} style={{flex: 'unset'}}>
                 <Button htmlType="button" type="danger" onClick={() => {
                   this.setState({selectedSchema: null, selectedPatient: null})
-                }} style={{marginRight: '20px'}}>
+                }} style={{marginRight: '20px'}}
+                        disabled={
+                          !this.state.selectedPatient || aries.loading_schema || aries.loading_schema_detail || aries.sending_offer || this.showStatus
+                        }
+                >
                   Cancel
                 </Button>
 
@@ -174,7 +178,7 @@ class IssueCertificate extends React.Component {
                   //disabled={locations.length && infectionStatus !== "" ? undefined : true}
                   htmlType="submit"
                   disabled={
-                    !this.state.selectedPatient || aries.loading_schema || aries.loading_schema_detail || aries.sending_offer
+                    !this.state.selectedPatient || aries.loading_schema || aries.loading_schema_detail || aries.sending_offer || this.showStatus
                   }
                   loading={aries.sending_offer}
                 >
