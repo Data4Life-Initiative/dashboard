@@ -106,7 +106,7 @@ class IssueCertificate extends React.Component {
       </Title>
       <Row style={{marginBottom: '30px'}}>
         <Col span={8}>
-          Patient
+          Patient Name
         </Col>
         <Col span={16}>
           <Select
