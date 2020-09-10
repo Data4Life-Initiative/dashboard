@@ -103,7 +103,6 @@ class IssueCertificate extends React.Component {
           marginBottom: "30px"
         }}
       >
-        Issue Certificate
       </Title>
       <Row style={{marginBottom: '30px'}}>
         <Col span={8}>
