@@ -146,7 +146,7 @@ class IssueCertificate extends React.Component {
           {
             aries.loading_schema_detail === false && aries.schema_detail.attrNames && selectedSchema &&
             <Form className={certificateStyles.form} name="dynamic_form_item" {...layout} onFinish={this.processCertificate}>
-              <h3>{aries.schema_detail.name}</h3>
+              <h3 style={{textAlign: 'center'}}>{aries.schema_detail.name}</h3>
               {
                 aries.schema_detail.attrNames.map(field => <Form.Item
                   label={field}
