@@ -363,12 +363,22 @@ class Patient extends React.Component {
                 threadID: data.thread_id
             })
             if(response.data.results.length > 0){
-                const info = response.data.results[0].presentation.proof.proofs[0].primary_proof.eq_proof.revealed_attrs;
-                console.log(info);
+                const raw = response.data.results[0].presentation.requested_proof.revealed_attrs;
                 this.setState({
-                    patientInfo: info
+                    patientInfo: {
+                        email: raw['0_email_uuid'].raw,
+                        mobilenumber: raw['0_mobilenumber_uuid'].raw,
+                        name: raw['0_name_uuid'].raw
+                    }
                 });
             }
+        };
+        this.websocketClient.onopen = (e) => {
+            setTimeout(()=>{
+                this.websocketClient.send(JSON.stringify({
+                    'thread_id': "e8a47caa-4590-46dd-8cfa-1437b60afde1"
+                }));
+            }, 2000);
         };
 
     }
