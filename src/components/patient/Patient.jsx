@@ -370,13 +370,6 @@ class Patient extends React.Component {
                 });
             }
         };
-        this.websocketClient.onopen = (e) => {
-            setTimeout(()=>{
-                this.websocketClient.send(JSON.stringify({
-                    'thread_id': "e8a47caa-4590-46dd-8cfa-1437b60afde1"
-                }));
-            }, 2000);
-        };
 
     }
 
