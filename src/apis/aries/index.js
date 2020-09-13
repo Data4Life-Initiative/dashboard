@@ -44,3 +44,7 @@ export function getCertificateRequestStatus(payload) {
   const URL = "/issue-credential/records?thread_id=" + payload;
   return ariesAxiosInstance.get(URL);
 }
+
+export function getPresentProofRecord (payload) {
+  return ariesAxiosInstance.get('present-proof/records?state=verified&thread_id=' + payload.threadID)
+}

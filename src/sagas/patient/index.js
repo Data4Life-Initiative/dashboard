@@ -2,6 +2,7 @@ import { call, put, takeLatest, all } from "redux-saga/effects";
 import { patientActionTypes, dashboardActionTypes } from "../../actions_types";
 import { Addpatient,  getPatientsFromAries} from "../../apis";
 import { message } from "antd";
+
 function* PostAddPatient(action) {
   try {
     const responseData = yield call(Addpatient, action.payload);

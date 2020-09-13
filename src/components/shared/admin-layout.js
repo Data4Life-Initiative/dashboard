@@ -29,7 +29,7 @@ const AdminLayoutComponent = (props, e) => {
             <Header className="custom-layout-header">
                 <img
                     className="logo"
-                    src="/white_raven.png"
+                    src="/healthcare_logo.jpg"
                     alt=""
                 />
                 <Text

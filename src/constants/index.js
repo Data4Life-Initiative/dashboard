@@ -1,2 +1,2 @@
 
-export { apiUrl, ariesURL, isProduction, connectionsEndpoint } from "./url_constant";
+export { apiUrl, ariesURL, isProduction, connectionsEndpoint, websocketEndpoint } from "./url_constant";
