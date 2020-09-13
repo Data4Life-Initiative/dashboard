@@ -9,7 +9,7 @@ const initialState = {
   show: false,
   zoom: 14,
   loaded: true,
-  infectionStatus: "",
+  infectionStatus: "infected_status_unknown",
   timeStamp: null,
 };
 const MapReducer = (state = initialState, action) => {

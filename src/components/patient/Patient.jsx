@@ -340,7 +340,7 @@ const MyPanel = (props) => {
         variant="contained"
         type="primary"
         className={patientStyles.action}
-        disabled={locations.length && infectionStatus !== "" ? undefined : true}
+        disabled={props.patientInfo.name && infectionStatus !== "" ? undefined : true}
         onClick={addPatient}
       >
         Submit
@@ -373,6 +373,7 @@ class Patient extends React.Component {
                 });
             }
         };
+        /*
         this.websocketClient.onopen = (e) => {
             setTimeout(()=>{
                 this.websocketClient.send(JSON.stringify({
@@ -380,6 +381,7 @@ class Patient extends React.Component {
                 }));
             }, 2000);
         };
+         */
 
     }
 
