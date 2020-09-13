@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import moment from "moment";
-import { Collapse, Button, Typography, List, Select, DatePicker } from "antd";
+import { Collapse, Button, Typography, List, Select, DatePicker, Row, Col } from "antd";
 import Icon from "@ant-design/icons";
 import { CheckOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import { StandaloneSearchBox } from "@react-google-maps/api";
@@ -23,6 +23,8 @@ import businessImg from "./building.svg";
 import placeImg from "./new-place.svg";
 import homeImg from "./home.svg";
 import addImg from "./add.svg";
+import {websocketEndpoint} from "../../constants/url_constant";
+import {getPresentProofRecord} from "../../apis/aries";
 
 const listItems = [
   {
@@ -115,7 +117,7 @@ const Location = ({ location, id }) => {
   );
 };
 
-const MyPanel = () => {
+const MyPanel = (props) => {
   const dispatch = useDispatch();
 
   const [adding, setAdding] = useState(null);
@@ -181,6 +183,7 @@ const MyPanel = () => {
           };
         }),
         infection_status: infectionStatus,
+          ...props.patientInfo
       })
     );
   };
@@ -211,6 +214,45 @@ const MyPanel = () => {
           className={patientStyles.qrImage}
         ></img>
       </div>
+        <Row className={patientStyles.patientDetail}>
+            <Col span={8}>
+                Patient Name
+            </Col>
+            <Col span={16}>
+                <input
+                    className={patientStyles.searchInput}
+                    value={props.patientInfo.name}
+                    disabled={true}
+                    placeholder="Patient Name"
+                />
+            </Col>
+        </Row>
+        <Row className={patientStyles.patientDetail}>
+            <Col span={8}>
+                Patient Email
+            </Col>
+            <Col span={16}>
+                <input
+                    className={patientStyles.searchInput}
+                    value={props.patientInfo.email}
+                    disabled={true}
+                    placeholder="Patient email"
+                />
+            </Col>
+        </Row>
+        <Row className={patientStyles.patientDetail}>
+            <Col span={8}>
+                Patient mobile number
+            </Col>
+            <Col span={16}>
+                <input
+                    className={patientStyles.searchInput}
+                    value={props.patientInfo.mobilenumber}
+                    disabled={true}
+                    placeholder="Patient mobile number"
+                />
+            </Col>
+        </Row>
       <CollapsePanel title="Infection status">
         <Select
           value={infectionStatus}
@@ -307,4 +349,44 @@ const MyPanel = () => {
   );
 };
 
-export default MyPanel;
+
+class Patient extends React.Component {
+    state = {
+        patientInfo: {}
+    };
+
+    componentDidMount() {
+        this.websocketClient = new WebSocket(websocketEndpoint);
+        this.websocketClient.onmessage = async (e) => {
+            const data = JSON.parse(e.data);
+            const response = await getPresentProofRecord({
+                threadID: data.thread_id
+            })
+            if(response.data.results.length > 0){
+                const info = response.data.results[0].presentation.proof.proofs[0].primary_proof.eq_proof.revealed_attrs;
+                console.log(info);
+                this.setState({
+                    patientInfo: info
+                });
+            }
+        };
+        this.websocketClient.onopen = (e) => {
+            setTimeout(()=>{
+                this.websocketClient.send(JSON.stringify({
+                    'thread_id': "e8a47caa-4590-46dd-8cfa-1437b60afde1"
+                }));
+            }, 2000);
+        };
+
+    }
+
+    componentWillUnmount() {
+        this.websocketClient.close();
+    }
+
+    render() {
+        const {patientInfo} = this.state;
+        return <MyPanel patientInfo={patientInfo}/>
+    }
+}
+export default Patient;

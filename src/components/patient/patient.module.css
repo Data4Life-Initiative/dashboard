@@ -19,6 +19,10 @@
   align-items: center;
   position: relative;
 }
+.patientDetail {
+  margin-bottom: 20px;
+}
+
 .action {
   margin-top: 10px;
 }

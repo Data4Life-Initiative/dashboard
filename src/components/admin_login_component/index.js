@@ -43,7 +43,7 @@ export class AdminLoginComponent extends React.PureComponent {
           <div className="logo">
             <img
               alt=""
-              src="https://storage.googleapis.com/igrant-api-images/privacy-dashboard/data4life.jpeg"
+              src="/healthcare_logo.jpg"
             />
           </div>
           <p className="login-title">Login to Admin Dashboard</p>
