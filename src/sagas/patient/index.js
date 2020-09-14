@@ -52,7 +52,6 @@ function* GetPatientConnections(action) {
 }
 
 export function* getPatientConnectionsAction() {
-  yield takeLatest(patientActionTypes.addPatientStart, PostAddPatient);
   yield takeLatest(patientActionTypes.getPatientConnections, GetPatientConnections);
 }
 

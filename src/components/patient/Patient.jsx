@@ -373,7 +373,7 @@ class Patient extends React.Component {
                 });
             }
         };
-        /*
+
         this.websocketClient.onopen = (e) => {
             setTimeout(()=>{
                 this.websocketClient.send(JSON.stringify({
@@ -381,7 +381,7 @@ class Patient extends React.Component {
                 }));
             }, 2000);
         };
-         */
+
 
     }
 
