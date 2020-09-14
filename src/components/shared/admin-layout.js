@@ -42,7 +42,7 @@ const AdminLayoutComponent = (props, e) => {
                     }}
                     className="custom-left"
                 >
-                    Data4Life
+                    TEST CENTER
                 </Text>
                 <Text
                     style={{
