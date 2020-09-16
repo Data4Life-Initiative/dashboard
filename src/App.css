@@ -1,6 +1,7 @@
 .logo {
   height: 32px;
   margin: 16px;
+  border-radius: 50%;
 }
 
 .site-layout .site-layout-background {
