@@ -1,6 +1,15 @@
 import React, { useRef, useState } from "react";
 import moment from "moment";
-import { Collapse, Button, Typography, List, Select, DatePicker, Row, Col } from "antd";
+import {
+  Collapse,
+  Button,
+  Typography,
+  List,
+  Select,
+  DatePicker,
+  Row,
+  Col,
+} from "antd";
 import Icon from "@ant-design/icons";
 import { CheckOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import { StandaloneSearchBox } from "@react-google-maps/api";
@@ -23,8 +32,11 @@ import businessImg from "./building.svg";
 import placeImg from "./new-place.svg";
 import homeImg from "./home.svg";
 import addImg from "./add.svg";
-import {websocketEndpoint} from "../../constants/url_constant";
-import {getPresentProofRecord} from "../../apis/aries";
+import axios from "axios";
+import QRCode from "qrcode";
+import { createQrEndpoint, qrBaseURl, apiKey, pollPatientInfoUrl,websocketEndpoint } from "../../constants/url_constant";
+import { getPresentProofRecord } from "../../apis/aries";
+import { prop } from "rambda";
 
 const listItems = [
   {
@@ -151,7 +163,7 @@ const MyPanel = (props) => {
   const handleKeyPress = (e) => {
     let key = e.which || e.charCode;
     if (key === 13) {
-      // addPlace("place");
+      addPlace("place");
     }
   };
 
@@ -183,7 +195,7 @@ const MyPanel = (props) => {
           };
         }),
         infection_status: infectionStatus,
-          ...props.patientInfo
+        ...props.patientInfo,
       })
     );
   };
@@ -208,51 +220,48 @@ const MyPanel = (props) => {
         ADD NEW PATIENTS
       </Title>
       <div className={patientStyles.qr}>
-        <img
-          src="/qr_image.png"
-          alt="QR Code"
-          className={patientStyles.qrImage}
-        ></img>
+        <div className="qr-hold-container">
+          <img id="tick" src="/tick.png"  hidden={!Object.keys(props.patientInfo).length}/>
+          <img
+            src={props.qrInfo.qrURL}
+            alt="QR Code"
+            className={patientStyles.qrImage}
+          />
+        </div>
       </div>
-        <Row className={patientStyles.patientDetail}>
-            <Col span={8}>
-                Patient Name
-            </Col>
-            <Col span={16}>
-                <input
-                    className={patientStyles.searchInput}
-                    value={props.patientInfo.name}
-                    disabled={true}
-                    placeholder="Patient Name"
-                />
-            </Col>
-        </Row>
-        <Row className={patientStyles.patientDetail}>
-            <Col span={8}>
-                Patient Email
-            </Col>
-            <Col span={16}>
-                <input
-                    className={patientStyles.searchInput}
-                    value={props.patientInfo.email}
-                    disabled={true}
-                    placeholder="Patient email"
-                />
-            </Col>
-        </Row>
-        <Row className={patientStyles.patientDetail}>
-            <Col span={8}>
-                Patient mobile number
-            </Col>
-            <Col span={16}>
-                <input
-                    className={patientStyles.searchInput}
-                    value={props.patientInfo.mobilenumber}
-                    disabled={true}
-                    placeholder="Patient mobile number"
-                />
-            </Col>
-        </Row>
+      <Row className={patientStyles.patientDetail}>
+        <Col span={8}>Patient Name</Col>
+        <Col span={16}>
+          <input
+            className={patientStyles.searchInput}
+            value={props.patientInfo.Name}
+            readOnly={true}
+            placeholder="Patient Name"
+          />
+        </Col>
+      </Row>
+      <Row className={patientStyles.patientDetail}>
+        <Col span={8}>Patient Email</Col>
+        <Col span={16}>
+          <input
+            className={patientStyles.searchInput}
+            value={props.patientInfo.Email}
+            readOnly={true}
+            placeholder="Patient email"
+          />
+        </Col>
+      </Row>
+      <Row className={patientStyles.patientDetail}>
+        <Col span={8}>Patient mobile number</Col>
+        <Col span={16}>
+          <input
+            className={patientStyles.searchInput}
+            value={props.patientInfo["Mobile number"]}
+            readOnly={true}
+            placeholder="Patient mobile number"
+          />
+        </Col>
+      </Row>
       <CollapsePanel title="Infection status">
         <Select
           value={infectionStatus}
@@ -340,7 +349,9 @@ const MyPanel = (props) => {
         variant="contained"
         type="primary"
         className={patientStyles.action}
-        disabled={props.patientInfo.name && infectionStatus !== "" ? undefined : true}
+        disabled={
+          props.patientInfo.Name && infectionStatus !== "" ? false : true
+        }
         onClick={addPatient}
       >
         Submit
@@ -349,32 +360,79 @@ const MyPanel = (props) => {
   );
 };
 
+let count = 0;
+let infoInit = "";
 
 class Patient extends React.Component {
-    state = {
-        patientInfo: {}
+  constructor() {
+    super();
+    this.state = {
+      patientInfo: {},
+      qrID: '',
+      qrURL: '',
+      setTimeoutID: ''
     };
+  }
+  componentDidMount() {
+    const axiosConfig = {
+      headers: {
+        Authorization: apiKey
+      },
+    };
+    const pollPatientInfo= async (id) => {
+      const url =
+        pollPatientInfoUrl + id + "&state=verified";
+      const response = await window.fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization:
+            apiKey,
+        },
+      });
+      if (response.status == 200) {
+        let result = await response.json()
+        if (result.results.length > 0) {
+          result = result.results[0]
+          this.setState({
+            patientInfo: {
+              [result.presentation_proposal_dict.presentation_proposal
+                .attributes[0].name]:
+                result.presentation_proposal_dict.presentation_proposal
+                  .attributes[0].value,
+              [result.presentation_proposal_dict.presentation_proposal
+                .attributes[1].name]:
+                result.presentation_proposal_dict.presentation_proposal
+                  .attributes[1].value,
+              [result.presentation_proposal_dict.presentation_proposal
+                .attributes[2].name]:
+                result.presentation_proposal_dict.presentation_proposal
+                  .attributes[2].value,
+            },
+          });
+          return;
+        }
+      }
+  
+      const timeOutID = setTimeout(
+        () => pollPatientInfo(id)
+      , 5000);
+      this.setState({setTimeoutID: timeOutID})
+    }
+    const setQRInfo = (id, url) => this.setState({ qrURL: url, qrID: id })
+    axios.post(createQrEndpoint,'',axiosConfig).then((response)=>{
+      const newQR =  qrBaseURl+ response.data.qr_id
+      QRCode.toDataURL(newQR, function (error, url) {
+        if (error) throw error
+        setQRInfo(response.data.qr_id, url)
+        pollPatientInfo(response.data.qr_id)
+      });
+    }).catch((err) => {
+      this.setState({qrID: '', qrURL: ''})
+    })
+    
 
-    componentDidMount() {
-        this.websocketClient = new WebSocket(websocketEndpoint);
-        this.websocketClient.onmessage = async (e) => {
-            const data = JSON.parse(e.data);
-            const response = await getPresentProofRecord({
-                threadID: data.thread_id
-            })
-            if(response.data.results.length > 0){
-                const raw = response.data.results[0].presentation.requested_proof.revealed_attrs;
-                this.setState({
-                    patientInfo: {
-                        email: raw['0_email_uuid'].raw,
-                        mobilenumber: raw['0_mobilenumber_uuid'].raw,
-                        name: raw['0_name_uuid'].raw
-                    }
-                });
-            }
-        };
-
-        /*
+    /*
         this.websocketClient.onopen = (e) => {
             setTimeout(()=>{
                 this.websocketClient.send(JSON.stringify({
@@ -384,17 +442,17 @@ class Patient extends React.Component {
         };
 
          */
+  }
+  //81887817-778c-4b14-8d4c-a56c0f004f68"
+componentWillUnmount() {
+  clearTimeout(this.state.setTimeoutID)
+}
 
+  
 
-    }
-
-    componentWillUnmount() {
-        this.websocketClient.close();
-    }
-
-    render() {
-        const {patientInfo} = this.state;
-        return <MyPanel patientInfo={patientInfo}/>
-    }
+  render() {
+    const { patientInfo } = this.state;
+    return <MyPanel patientInfo={patientInfo} qrInfo = {{qrURL: this.state.qrURL, qrID: this.state.qrID}} />;
+  }
 }
 export default Patient;

@@ -1,7 +1,7 @@
 import axios from "axios";
 
-import { apiUrl, ariesURL, connectionsEndpoint, isProduction } from "../../constants";
-import { responseErrorInterceptor, requestInterceptor } from "../interceptors";
+import { apiUrl, ariesURL, connectionsEndpoint, isProduction, apiKey } from "../../constants";
+import { responseErrorInterceptor, requestInterceptor, ariesRequestInterceptor } from "../interceptors";
 
 const axiosInstance = axios.create({
   baseURL: apiUrl,
@@ -13,17 +13,17 @@ const ariesAxiosInstance = axios.create({
   baseURL: ariesURL
 });
 ariesAxiosInstance.interceptors.response.use(undefined, responseErrorInterceptor);
-ariesAxiosInstance.interceptors.request.use(requestInterceptor);
+ariesAxiosInstance.interceptors.request.use(ariesRequestInterceptor);
 
 
 const connectionEndpointInstance = axios.create({
   baseURL: connectionsEndpoint,
   headers: {
-    'Authorization': isProduction ? 'ApiKey eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI1YzE4YWRiMDU0MzA0NjAwMDFhZjYyNTAiLCJleHAiOjE2MzA2OTM2MzJ9.6ot0dRulSs4k6F0zreJK8i6g_j1Q_6k7YIsCp8D7SLM' : '',
+    'Authorization': apiKey
   },
 });
 connectionEndpointInstance.interceptors.response.use(undefined, responseErrorInterceptor);
-connectionEndpointInstance.interceptors.request.use(requestInterceptor);
+connectionEndpointInstance.interceptors.request.use(ariesRequestInterceptor);
 
 /**
  *  Add patient

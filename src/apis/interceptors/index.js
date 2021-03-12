@@ -1,5 +1,6 @@
 import { message } from "antd";
 import { get } from "../../utils/clientStorageUtils";
+import { apiKey} from '../../constants'
 
 /**
  * Interceptor for api response errors
@@ -26,6 +27,16 @@ export function requestInterceptor(config) {
   if (config) {
     const access_token = get("accessToken");
     config.headers.common["Authorization"] = `Bearer ${access_token}`;
+    return config;
+  } else {
+    return Promise.reject(config);
+  }
+}
+
+export function ariesRequestInterceptor(config) {
+  if (config) {
+    const access_token = get("accessToken");
+    config.headers.common["Authorization"] = apiKey;
     return config;
   } else {
     return Promise.reject(config);
