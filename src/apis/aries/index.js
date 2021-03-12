@@ -1,14 +1,14 @@
 import axios from "axios";
 
-import { ariesURL, isProduction } from "../../constants";
-import { responseErrorInterceptor, requestInterceptor } from "../interceptors";
+import { ariesURL, covid19CredDefID } from "../../constants";
+import { responseErrorInterceptor, requestInterceptor, ariesRequestInterceptor } from "../interceptors";
 
 
 const ariesAxiosInstance = axios.create({
   baseURL: ariesURL
 });
 ariesAxiosInstance.interceptors.response.use(undefined, responseErrorInterceptor);
-ariesAxiosInstance.interceptors.request.use(requestInterceptor);
+ariesAxiosInstance.interceptors.request.use(ariesRequestInterceptor);
 
 
 export function getSchemaFromAries() {
@@ -25,7 +25,7 @@ export function sendOffer(payload) {
   const _payload = {
     "trace": false,
     "auto_remove": false,
-    "auto_issue": false,
+    "auto_issue": true,
     "connection_id": payload.connection_id,
     "comment": "",
     "credential_preview": {
@@ -34,7 +34,7 @@ export function sendOffer(payload) {
         return {name: key, value: payload.attributes[key]}
       })
     },
-    "cred_def_id": isProduction ? 'QfYUgB4GrLPE5U16PzbSH2:3:CL:251:default' : "AGmo1HxEdSrSeD3whBDdnV:3:CL:271:default"
+    "cred_def_id": covid19CredDefID
   };
   return ariesAxiosInstance.post("/issue-credential/send-offer", _payload);
 }
