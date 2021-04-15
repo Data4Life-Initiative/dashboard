@@ -114,7 +114,7 @@ class IssueCertificate extends React.Component {
             onChange={(value) => {
               this.setState({selectedPatient: value} )}}
             className={certificateStyles.width100Per}
-            options = {(patient.connections || []).map(connection => {return {value: connection.connection_id, label: connection.their_label}})}
+            options = {(patient.connections || []).map(connection => {return {value: connection.connection_id, label: connection.patient_name}})}
           />
         </Col>
       </Row>
@@ -130,7 +130,7 @@ class IssueCertificate extends React.Component {
             className={certificateStyles.width100Per}
           >
             {
-              (aries.schema || []).map((schema,i) =>  <Option key={i} value={schema} >{schema.split(':')[2]}</Option>)
+              (aries.schema || []).map((schema,i) =>  <Option key={i} value={schema.schema_id} >{schema.schema_name}</Option>)
             }
           </Select>
         </Col>

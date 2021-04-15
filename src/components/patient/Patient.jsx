@@ -234,7 +234,7 @@ const MyPanel = (props) => {
         <Col span={16}>
           <input
             className={patientStyles.searchInput}
-            value={props.patientInfo.Name}
+            value={props.patientInfo.patient_name}
             readOnly={true}
             placeholder="Patient Name"
           />
@@ -245,7 +245,7 @@ const MyPanel = (props) => {
         <Col span={16}>
           <input
             className={patientStyles.searchInput}
-            value={props.patientInfo.Email}
+            value={props.patientInfo.patient_email}
             readOnly={true}
             placeholder="Patient email"
           />
@@ -256,7 +256,7 @@ const MyPanel = (props) => {
         <Col span={16}>
           <input
             className={patientStyles.searchInput}
-            value={props.patientInfo["Mobile number"]}
+            value={props.patientInfo.patient_mobile_number}
             readOnly={true}
             placeholder="Patient mobile number"
           />
@@ -350,7 +350,7 @@ const MyPanel = (props) => {
         type="primary"
         className={patientStyles.action}
         disabled={
-          props.patientInfo.Name && infectionStatus !== "" ? false : true
+          props.patientInfo.patient_name && infectionStatus !== "" ? false : true
         }
         onClick={addPatient}
       >
@@ -379,6 +379,13 @@ class Patient extends React.Component {
         Authorization: apiKey
       },
     };
+
+    const mapAttributes = (value) => {
+      if(value === 'Name') return 'patient_name'
+      if(value === 'Phone') return 'patient_mobile_number'
+      if(value === 'Email') return 'patient_email'
+    }
+
     const pollPatientInfo= async (id) => {
       const url =
         pollPatientInfoUrl + id + "&state=verified";
@@ -396,18 +403,19 @@ class Patient extends React.Component {
           result = result.results[0]
           this.setState({
             patientInfo: {
-              [result.presentation_proposal_dict.presentation_proposal
-                .attributes[0].name]:
+              [mapAttributes(result.presentation_proposal_dict.presentation_proposal
+                .attributes[0].name)]:
                 result.presentation_proposal_dict.presentation_proposal
                   .attributes[0].value,
-              [result.presentation_proposal_dict.presentation_proposal
-                .attributes[1].name]:
+              [mapAttributes(result.presentation_proposal_dict.presentation_proposal
+                .attributes[1].name)]:
                 result.presentation_proposal_dict.presentation_proposal
                   .attributes[1].value,
-              [result.presentation_proposal_dict.presentation_proposal
-                .attributes[2].name]:
+              [mapAttributes(result.presentation_proposal_dict.presentation_proposal
+                .attributes[2].name)]:
                 result.presentation_proposal_dict.presentation_proposal
                   .attributes[2].value,
+              connection_id: result.connection_id
             },
           });
           return;

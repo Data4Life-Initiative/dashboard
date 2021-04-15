@@ -33,6 +33,6 @@ export function Addpatient(payload) {
   return axiosInstance.post("data-entry/patient/", payload);
 }
 
-export function getPatientsFromAries(payload) {
-  return connectionEndpointInstance.get("", payload);
+export function getPatients(payload) {
+  return axiosInstance.get("data-entry/patient/", payload);
 }
