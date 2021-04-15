@@ -5,10 +5,9 @@ import { getSchemaFromAries ,getSchemaDetailFromAries, sendOffer, getCertificate
 function* GetSchemaFromAries(action) {
   try {
     const responseData = yield call(getSchemaFromAries, action.payload);
-
     yield put({
       type: ariesActionTypes.saveSchemaFromAries,
-      value: responseData.data.schema_ids || [{ error: responseData.data.data }],
+      value: responseData.data || [{ error: responseData.data.data }],
     });
   } catch (ex) {
     yield put({

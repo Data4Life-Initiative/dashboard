@@ -1,6 +1,6 @@
 import { call, put, takeLatest, all } from "redux-saga/effects";
 import { patientActionTypes, dashboardActionTypes } from "../../actions_types";
-import { Addpatient,  getPatientsFromAries} from "../../apis";
+import { Addpatient,  getPatients} from "../../apis";
 import { message } from "antd";
 
 function* PostAddPatient(action) {
@@ -35,11 +35,10 @@ export function* postAddPatientAction() {
 
 function* GetPatientConnections(action) {
   try {
-    const responseData = yield call(getPatientsFromAries, action.payload);
-
+    const responseData = yield call(getPatients, action.payload);
     yield put({
       type: patientActionTypes.savePatientConnections,
-      value: responseData.data.results || responseData.data || [{ error: responseData.data.data }],
+      value: responseData.data.data.patients,
     });
   } catch (ex) {
     message.error(ex.response.data.data.msg);
