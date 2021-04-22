@@ -12,7 +12,7 @@ ariesAxiosInstance.interceptors.request.use(ariesRequestInterceptor);
 
 
 export function getSchemaFromAries() {
-  return ariesAxiosInstance.get("/credential-definitions/created");
+  return ariesAxiosInstance.get(`/credential-definitions/created?cred_def_id=${covid19CredDefID}`);
 }
 
 

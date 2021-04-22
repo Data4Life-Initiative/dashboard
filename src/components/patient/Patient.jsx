@@ -222,11 +222,15 @@ const MyPanel = (props) => {
       <div className={patientStyles.qr}>
         <div className="qr-hold-container">
           <img id="tick" src="/tick.png"  hidden={!Object.keys(props.patientInfo).length}/>
-          <img
-            src={props.qrInfo.qrURL}
-            alt="QR Code"
-            className={patientStyles.qrImage}
-          />
+          {props.qrInfo.qrURL? 
+            <img
+              src={props.qrInfo.qrURL}
+              alt="QR Code"
+              className={patientStyles.qrImage}
+            />
+            :
+            ""
+          }
         </div>
       </div>
       <Row className={patientStyles.patientDetail}>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState, useRef} from "react";
 import { connect } from "react-redux";
 import {
   getPatientConnections, getSchemaFromAries, getSchemaDetailFromAries,
@@ -6,6 +6,7 @@ import {
 } from "../../actions";
 import {Button, Collapse, Row, Col, Select, Typography, Form, Input, message} from "antd";
 import certificateStyles from "./issue_certificate.module.css";
+
 const Option = Select.Option;
 const { Title } = Typography;
 
@@ -19,11 +20,14 @@ const tailLayout = {
 };
 
 class IssueCertificate extends React.Component {
-  state = {
-    selectedPatient: null,
-    selectedSchema: null
-  };
-
+  constructor(props){
+    super(props)
+    this.state = {
+      selectedPatient: null,
+      selectedSchema: null,
+      selectedPatientDetail:null
+    };
+  }
   componentDidMount() {
     this.props.getPatientConnections();
     this.props.getSchemaFromAries();
@@ -35,6 +39,7 @@ class IssueCertificate extends React.Component {
   };
 
   processCertificate = (values) => {
+    values.Name = this.state.selectedPatientDetail.patient_name
     this.props.sendOffer({
       attributes: values,
       type: this.state.selectedSchema,
@@ -110,8 +115,9 @@ class IssueCertificate extends React.Component {
         </Col>
         <Col span={16}>
           <Select
-            value={selectedPatient}
+            value={this.state.selectedPatient}
             onChange={(value) => {
+              this.setState({selectedPatientDetail: patient.connections.filter(connection => value === connection.connection_id)[0]})
               this.setState({selectedPatient: value} )}}
             className={certificateStyles.width100Per}
             options = {(patient.connections || []).map(connection => {return {value: connection.connection_id, label: connection.patient_name}})}
@@ -145,17 +151,22 @@ class IssueCertificate extends React.Component {
               <h3 style={{textAlign: 'center', marginBottom: '20px'}}>{aries.schema_detail.name}</h3>
               {
                 aries.schema_detail.attrNames.map(field => <Form.Item
+                  hidden ={field === 'Name'}
                   label={field}
                   name={field}
                   key={field}
                   rules={[
                     {
-                      required: true,
+                      required: field === 'Name'? false : true,
                       message: "Please input this field",
                     },
                   ]}
                 >
-                  <Input placeholder="" style={{ width: '100%' }} />
+                  {field === 'Name'?
+                      <Input hidden placeholder="" style={{ width: '100%' }}/>
+                  : 
+                    <Input placeholder="" style={{ width: '100%' }} />
+                  }
                 </Form.Item> )
               }
               <Form.Item {...tailLayout} style={{flex: 'unset'}}>
